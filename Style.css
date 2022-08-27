@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Orbitron&display=swap');
+
+:root {
+    --game-spacer-width: 4px;
+
+    --w95-theme-bg-color: #b4c0dc;
+    --w95-theme-border-color-topleft: #cfd8e8;
+    --w95-theme-border-color-bottomright: #6280b5;
+    --w95-theme-button-fg-color: #030303;
+    --w95-theme-button-active-bg-color: #008080;
+    --w95-theme-button-active-fg-color: #fcfcfc;
+    --w95-theme-button-inactive-bg-color: #5878b0;
+    --w95-theme-button-inactive-fg-color: #000080;
+    --w95-menu-spacer-width: 2px;
+}
+
+body {
+    margin: 0;
+    background-color: #ddd;
+}
+
+
+.borderBlackWhite {
+    border-style: solid;
+    border-width: var(--game-spacer-width);
+    border-color: #888 #fff #fff #888;
+}
+.borderWhiteBlack {
+    border-style: solid;
+    border-width: var(--game-spacer-width);
+    border-color: #fff #888 #888 #fff;
+}
+
+.windowPopup {
+    position: absolute; /* relative to #minesweeper */
+    z-index: 3; /* 1 is the smiley (reset button) and 2 are (dropdown) menus */
+    top: 30px;
+    left: 30px;
+    user-select: none;
+}
+    .hidden {
+        display: none;
+    }
+    .windowPopup table {
+        margin: 3px;
+    }
+    .windowPopup input {
+        border-style: solid;
+        border-width: var(--w95-menu-spacer-width);
+        border-color: #888 #fff #fff #888;
+        width: 60px;
+    }
+    .windowPopup .wideButton {
+        margin-top: 0
+    }
+    .windowPopup table td {
+        padding-block: 8px;
+    }
+    .windowPopup tr td:nth-child(1) {
+        padding-right: 25px;
+    }
+    #aboutMinesweeperMenu p, #recreationByMenu p {
+        margin-block: 0;
+    }
+    #aboutMinesweeperMenu table {
+        margin: 15px;
+    }
+    #aboutMinesweeperMenu .menuKeyValues {
+        margin: 0;
+    }
+        #aboutMinesweeperMenu .menuKeyValues td, #recreationByMenu .menuKeyValues td {
+            padding-block: 3px;
+        }
+        #aboutMinesweeperMenu hr, #recreationByMenu hr {
+            margin-top: 15px;
+        }
+
+.windowWrapper {
+    border-style: solid;
+    border-width: var(--w95-menu-spacer-width);
+    border-color: var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-topleft);
+    padding: var(--w95-menu-spacer-width);
+    background: var(--w95-theme-bg-color);
+    box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
+}
+    .windowTopbar {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 5px;
+        background: var(--w95-theme-button-active-bg-color);
+        color: var(--w95-theme-button-active-fg-color);
+    }
+        .menuTitle {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 20px;
+            margin-right: 8px;
+            user-select: none;
+        }
+            .menuTitle>img {
+                height: 23px;
+                margin-right: 4px;
+            }
+            .menuButton {
+                border-style: solid;
+                border-width: var(--w95-menu-spacer-width);
+                background: var(--w95-theme-bg-color);
+                padding: 0;
+                margin: 2px;
+                border-color: #fff #888 #888 #fff;
+            }
+                .menuButton:hover {
+                    /*background-color: #aaa;*/
+                }
+                .menuButton:active {
+                    border-color: #888 #fff #fff #888;
+                }
+                .windowCloseIcon {
+                    background: url(images/menuClose.svg);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                }
+                .menuButtonIcon {
+                    display: block;
+                    margin: 3px;
+                    width: 11px;
+                    height: 11px;
+                }
+                .menuButton:active .menuButtonIcon {
+                    margin: 4px 2px 2px 4px;
+                }
+                .wideButton {
+                    padding-inline: 18px;
+                }
+                    .wideButton .menuButtonIcon {
+                        width: auto;
+                        height: auto;
+                        margin: 2px;
+                    }
+                    .wideButton:active .menuButtonIcon {
+                        margin: 3px 1px 1px 3px;
+                    }
+                .spreadSpan {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                    .spreadSpan>span:nth-child(1) {
+                        margin-right: 15px;
+                    }
+
+
+
+#gameContainer {
+    display: flex;
+    height: 100vh;
+}
+    #minesweeperWrapper {
+        display: flex;
+        flex-flow: column;
+        margin: auto;
+        border-style: solid;
+        border-width: var(--w95-menu-spacer-width);
+        border-color: var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-topleft);
+        padding: var(--w95-menu-spacer-width);
+        background: var(--w95-theme-bg-color);
+        box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
+    }
+        #menus {
+            padding-block: var(--w95-menu-spacer-width);
+            display: flex;
+            flex-flow: row;
+            user-select: none;
+        }
+            .w95MenuButton {
+                border: none;
+                background: none;
+                position: relative;
+                font-size: 20px;
+                padding: 5px 10px;
+                color: var(--w95-theme-button-fg-color);
+            }
+                .w95MenuButton > span {
+                    pointer-events: none;
+                }
+            .w95MenuButton:hover, .w95MenuButton:focus {
+                color: var(--w95-theme-button-active-fg-color);
+                background: var(--w95-theme-button-active-bg-color);
+            }
+            .w95MenuButton:focus .menu {
+                display: block;
+            }
+                .menu {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    border-style: solid;
+                    border-width: var(--w95-menu-spacer-width);
+                    border-color: var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-topleft);
+                    z-index: 2; /* 1 is the smiley (reset button) and 3 are popup windows */
+                    color: var(--w95-theme-button-fg-color);
+                    background: var(--w95-theme-bg-color);
+                    box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
+                }
+                    .menu table {
+                        text-align: left;
+                        border-collapse: collapse;
+                        white-space: nowrap;
+                    }
+                        .menu tr:not(.divider):hover {
+                            color: var(--w95-theme-button-active-fg-color);
+                            background: var(--w95-theme-button-active-bg-color);
+                        }
+                            .menu tr:not(.divider) td {
+                                padding: 6px 3px;
+                            }
+                            .menu tr>td:nth-child(3) {
+                                padding-right: 35px;
+                            }
+                            .divider hr {
+                                margin-block: 2px;
+                                border-width: 1px 0;
+                                border-top-color: #0000; /* hr's top-border is darkened somehow. this is a bodgefix */
+                                background: var(--w95-theme-border-color-bottomright);
+                                border-bottom-color: var(--w95-theme-border-color-topleft);
+                            }
+                        .menu tr[disabled] {
+                            opacity: 0.5;
+                            font-style: italic;
+                        }
+        #minesweeper {
+            position: relative; /* for config/info windows */
+            width: max-content;
+            padding: 10px;
+            background-color: #bbb;
+        }
+            #scoreboard {
+                position: relative;
+                height: 40px;
+                padding: 10px;
+                margin-bottom: 10px;
+                font-size: 30px;
+                font-family: Orbitron;
+            }
+                #minesLeft {
+                    display: inline-block;
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    padding: 1px;
+                    color: red;
+                    background-color: black;
+                    user-select: none;
+                }
+
+                #restartButton {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: #c0c0c0;
+                    z-index: 1; /* 2 are (dropdown) menus and 3 are popup windows */
+                    box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
+                }
+                    #smiley {
+                        background: url(images/smiley.svg);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        width: 30px;
+                        height: 30px;
+                    }
+                
+                #gameTimeCounter {
+                    display: inline-block;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    padding: 1px;
+                    color: red;
+                    background-color: black;
+                    user-select: none;
+                }
+            
+
+            #minefield {
+                display: table;
+            }
+                .row {
+                    display: flex;
+                    white-space: nowrap;
+                }
+                    .blokje {
+                        display: table-cell;
+                        position: relative;
+                        width: 60px;
+                        height: 60px;
+                        cursor: pointer;
+                        background-color: #bbb;
+                        font-family: sans-serif;
+                    }
+                        .blokje:active {
+                            border-width: 1px;
+                            border-color: gray;
+                        }
+
+                        .blokjeMine {
+                            
+                        }
+                        .blokjeSafe {
+                            border-width: 1px;
+                            border-color: gray;
+                        }
+                            .blokKleur1 {
+                                color: royalblue;
+                            }
+                            .blokKleur2 {
+                                color: green;
+                            }
+                            .blokKleur3 {
+                                color: red;
+                            }
+                            .blokKleur4 {
+                                color: darkblue;
+                            }
+                            .blokKleur5 {
+                                color: darkred;
+                            }
+                            .blokKleur6 {
+                                color: teal;
+                            }
+                            .blokKleur7 {
+                                color: black;
+                            }
+                            .blokKleur8 {
+                                color: gray;
+                            }
+
+                        .blokjeOnbekend {
+                            border-width: var(--game-spacer-width);
+                            border-style: solid;
+                            border-color: #fff #888 #888 #fff;
+                        }
+                            .blokjeOnbekend:active {
+                                border-width: 1px;
+                                border-color: gray;
+                            }
+                        
+                        .innerBlokje {
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                            line-height: 0;
+                            font-size: 40px;
+                            font-weight: bold;
+                        }
