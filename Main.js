@@ -808,6 +808,9 @@ let menus = document.getElementById("menus")
 let gameMenu = document.getElementById("game-menu")
 let helpMenu = document.getElementById("help-menu")
 let customFieldPopupMenu = document.getElementById("custom-field-popup-menu")
+let inputWidth = document.getElementById("input-width")
+let inputHeight = document.getElementById("input-height")
+let inputMines = document.getElementById("input-mines")
 let recreationByMenu = document.getElementById("recreation-by-menu")
 let aboutMinesweeperMenu = document.getElementById("about-minesweeper-menu")
 
@@ -892,7 +895,7 @@ function customFieldOK(element) {
 }
 
 function closePopupWindow(element) {
-    element.closest(".windowPopup").classList.add("hidden")
+    element.closest(".window-popup").classList.add("hidden")
 }
 
 function recreationBy() {
