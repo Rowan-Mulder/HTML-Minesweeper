@@ -8,7 +8,7 @@ class Minesweeper {
         this.exploringTimer = null
         this.preventNextLMB = false // Seems to be required for quick-clearing surroundings as RMB and LMB events are independently triggered
         this.preventNextRMB = false // Same story as preventNextLMB
-        this.marksToggled = true // Adds ? mark (default)
+        this.markingsToggled = true // Adds optional ? marking (default)
 
         this.minefield = minefield
         this.gameTimeCounter = gameTimeCounter
@@ -104,7 +104,7 @@ class Minesweeper {
                         }
 
                         // Cycles through markings (also clears up possible duplicates by potential bugs, hence the weird code)
-                        let markings = (this.marksToggled) ? ["🚩", "❓"] : ["🚩"]
+                        let markings = (this.markingsToggled) ? ["🚩", "❓"] : ["🚩"]
                         let previousMarkingIndex = -1
                         if (tile.children.length > 1) {
                             Array.from(tile.children).forEach((x) => {
@@ -825,13 +825,25 @@ function restart(options = null) {
     game.gameRestart(options)
 }
 
-function toggleMarks() {
+function toggleMarkings() {
     closeMenuDropdown()
-    game.marksToggled = !game.marksToggled
-    let marksCheck = document.getElementById("marksCheck")
-    marksCheck.innerText = (game.marksToggled) ? "✔" : ""
+    game.markingsToggled = !game.markingsToggled
+    let markingsCheck = document.getElementById("markingsCheck")
+    markingsCheck.innerText = (game.markingsToggled) ? "✔" : ""
 
-    // Removes all earlier placed ? marks
+    if (!game.markingsToggled) { // Hides all earlier placed ? markings
+        this.minefield.querySelectorAll(".marking").forEach((marking) => {
+            if (marking.innerText === "❓") {
+                marking.innerText = ""
+            }
+        })
+    } else { // Shows all earlier hidden ? markings
+        this.minefield.querySelectorAll(".marking").forEach((marking) => {
+            if (marking.innerText === "") {
+                marking.innerText = "❓"
+            }
+        })
+    }
 
 }
 
@@ -959,7 +971,7 @@ window.onkeydown = ((evt) => {
                 customFieldOpen()
                 break
             case "m":
-                toggleMarks()
+                toggleMarkings()
                 break
             case "l":
                 // Color, not implemented yet
@@ -999,7 +1011,6 @@ window.onkeydown = ((evt) => {
 /* Notes
 FIXME
     Clear ❓ and 🚩 on all forms of tile showing
-    After ? markings are disabled, hide all ? markings. When it's enabled again, show all ? markings.
 
 TODO
     Continue work on the menus
