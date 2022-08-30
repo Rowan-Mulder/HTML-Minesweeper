@@ -940,7 +940,7 @@ document.addEventListener("contextmenu", (evt) => {
     evt.preventDefault()
 })
 window.onkeydown = ((evt) => {
-    // Game menu specific shortcuts
+    // Game-menu specific keybindings
     if (getComputedStyle(gameMenu.querySelector(".menu")).display === "block") {
         switch (evt.key) {
             case "n":
@@ -985,7 +985,7 @@ window.onkeydown = ((evt) => {
         }
     }
 
-    // Global shortcuts
+    // Global keybindings
     switch (evt.key) {
         case "F2":
             restart()
