@@ -32,18 +32,18 @@ class Minesweeper {
             this.minefield.append(row)
 
             for (let x = 0; x < this.gridSize.x; x++) {
-                let blokje = document.createElement("button")
-                blokje.classList.add("blokje", "borderWhiteBlack")
-                blokje.addEventListener("click", (evt) => {
+                let tile = document.createElement("button")
+                tile.classList.add("tile", "borderWhiteBlack")
+                tile.addEventListener("click", (evt) => {
                     if (this.preventNextLMB) {
                         return
                     }
 
                     if (!this.gameEnded) {
-                        let blokje = minefield.children[y].children[x]
+                        let tile = minefield.children[y].children[x]
                         let containsFlag = false
                         let containsMine = false
-                        Array.from(blokje.children).forEach((x) => {
+                        Array.from(tile.children).forEach((x) => {
                             if (x.innerText === "🚩") {
                                 containsFlag = true
                             }
@@ -58,17 +58,17 @@ class Minesweeper {
                             if (!this.firstClickDone) { // Moves first clicked mine to a different spot. It doesn't make the rest of the game fair though.
                                 let randomTile = this.getRandomTile(true)
                                 
-                                blokje.firstChild.innerText = ""
-                                blokje.classList.remove("blokjeMine")
-                                blokje.classList.add("blokjeSafe")
+                                tile.firstChild.innerText = ""
+                                tile.classList.remove("mine")
+                                tile.classList.add("tileSafe")
                                 
                                 if (randomTile === null) { // If it can't find any empty tiles after searching ten times the amount of current tiles, you're either really lucky or there aren't any empty tiles left.
                                     this.gameWin()
                                     return
                                 }
                                 randomTile.firstChild.innerText = "💣"
-                                randomTile.classList.remove("blokjeSafe")
-                                randomTile.classList.add("blokjeMine")
+                                randomTile.classList.remove("tileSafe")
+                                randomTile.classList.add("mine")
                                 
                                 this.calcSurroundingMines()
                                 this.uncoverCloseTiles(x, y)
@@ -84,14 +84,14 @@ class Minesweeper {
                         this.firstClickDone = true
                     }
                 })
-                blokje.addEventListener("mousedown", (evt) => {
+                tile.addEventListener("mousedown", (evt) => {
                     if (evt.button === 1) { // Middle click
                         evt.preventDefault()
 
                         this.quickClear(x, y)
                     }
                 })
-                blokje.addEventListener("mouseup", (evt) => {
+                tile.addEventListener("mouseup", (evt) => {
                     evt.preventDefault()
 
                     if (evt.button === 2 && evt.buttons === 0) { // Right click
@@ -99,15 +99,15 @@ class Minesweeper {
                             return
                         }
 
-                        if (!blokje.classList.contains("blokjeOnbekend")) {
+                        if (!tile.classList.contains("tileUndiscovered")) {
                             return
                         }
 
                         // Cycles through markings (also clears up possible duplicates by potential bugs, hence the weird code)
                         let markings = (this.marksToggled) ? ["🚩", "❓"] : ["🚩"]
                         let previousMarkingIndex = -1
-                        if (blokje.children.length > 1) {
-                            Array.from(blokje.children).forEach((x) => {
+                        if (tile.children.length > 1) {
+                            Array.from(tile.children).forEach((x) => {
                                 if (x.classList.contains("marking")) {
                                     if (markings.indexOf(x.innerText) > previousMarkingIndex) {
                                         previousMarkingIndex = markings.indexOf(x.innerText)
@@ -124,9 +124,9 @@ class Minesweeper {
                         if (marking.innerText === markings[1]) {
                             marking.style.filter = "sepia() saturate(50) hue-rotate(180deg)"
                         }
-                        marking.classList.add("innerBlokje")
+                        marking.classList.add("innerTile")
                         marking.classList.add("marking")
-                        blokje.append(marking)
+                        tile.append(marking)
                     }
                     if (evt.button === 2 && evt.buttons === 1) {
                         this.quickClear(x, y)
@@ -138,19 +138,19 @@ class Minesweeper {
                     let mineContainer = document.createElement("div")
 
                     mineContainer.innerHTML = "💣"
-                    mineContainer.classList.add("innerBlokje")
-                    blokje.classList.add("blokjeMine")
-                    blokje.append(mineContainer)
+                    mineContainer.classList.add("innerTile")
+                    tile.classList.add("mine")
+                    tile.append(mineContainer)
                     let mineCount = Number(this.minesLeft.innerText) + 1
                     this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount
                 } else {
                     let noMine = document.createElement("div")
-                    noMine.classList.add("innerBlokje")
-                    blokje.classList.add("blokjeSafe")
-                    blokje.append(noMine)
+                    noMine.classList.add("innerTile")
+                    tile.classList.add("tileSafe")
+                    tile.append(noMine)
                 }
                 
-                row.append(blokje)
+                row.append(tile)
             }
         }
     }
@@ -182,7 +182,7 @@ class Minesweeper {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.clearSurroundingMinesNumber(x, y)
 
-                if (this.minefield.children[y].children[x].classList.contains("blokjeSafe")) {
+                if (this.minefield.children[y].children[x].classList.contains("tileSafe")) {
                     let mineCheckArea = []
                     let mineCount = 0
 
@@ -211,15 +211,15 @@ class Minesweeper {
                         }
                     }
                     
-                    for (let blokje of mineCheckArea) {
-                        if (blokje.firstChild.innerText === "💣") {
+                    for (let tile of mineCheckArea) {
+                        if (tile.firstChild.innerText === "💣") {
                             mineCount++
                         }
                     }
                     
                     if (mineCount > 0) {
                         this.minefield.children[y].children[x].firstChild.innerText = mineCount
-                        this.minefield.children[y].children[x].firstChild.classList.add("blokKleur" + mineCount)
+                        this.minefield.children[y].children[x].firstChild.classList.add("tileColor" + mineCount)
                     } else {
                         this.minefield.children[y].children[x].firstChild.innerText = ""
                     }
@@ -229,34 +229,34 @@ class Minesweeper {
     }
 
     clearSurroundingMinesNumber(x, y) {
-        let blokjeContent = null
+        let tileContent = null
 
-        for (let innerBlokje of this.minefield.children[y].children[x].querySelectorAll(".innerBlokje")) {
-            if (!innerBlokje.classList.contains("marking")) {
-                blokjeContent = innerBlokje
+        for (let innerTile of this.minefield.children[y].children[x].querySelectorAll(".innerTile")) {
+            if (!innerTile.classList.contains("marking")) {
+                tileContent = innerTile
                 break
             }
         }
 
-        if (blokjeContent !== null) {
-            Array.from(blokjeContent.classList).forEach((blokjeContentClass) => {
-                if (blokjeContentClass.startsWith("blokKleur")) {
-                    blokjeContent.classList.remove(blokjeContentClass)
+        if (tileContent !== null) {
+            Array.from(tileContent.classList).forEach((tileContentClass) => {
+                if (tileContentClass.startsWith("tileColor")) {
+                    tileContent.classList.remove(tileContentClass)
                 }
             })
         }
     }
     
     hideCell(x, y) {
-        let blokje = this.minefield.children[y].children[x]
-        blokje.firstChild.style.display = "none"
-        blokje.classList.add("blokjeOnbekend")
+        let tile = this.minefield.children[y].children[x]
+        tile.firstChild.style.display = "none"
+        tile.classList.add("tileUndiscovered")
     }
     
     showCell(x, y) {
-        let blokje = this.minefield.children[y].children[x]
-        blokje.firstChild.style.display = "inline-block"
-        blokje.classList.remove("blokjeOnbekend")
+        let tile = this.minefield.children[y].children[x]
+        tile.firstChild.style.display = "inline-block"
+        tile.classList.remove("tileUndiscovered")
     }
     
     hideAllCells() {
@@ -282,15 +282,14 @@ class Minesweeper {
 
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
-                let blokje = minefield.children[y].children[x]
-                blokje.firstChild.style.display = "inline-block"
-                blokje.classList.remove("blokjeOnbekend")
+                this.showCell(x, y)
+                let tile = minefield.children[y].children[x]
 
                 // Replaces incorrectly flagged tiles with crosses
-                if (blokje.children.length > 1) {
+                if (tile.children.length > 1) {
                     let isMineHere = false
                     let isFlagHere = false
-                    Array.from(blokje.children).forEach((x) => {
+                    Array.from(tile.children).forEach((x) => {
                         if (x.innerText === "🚩") {
                             isFlagHere = true
                             x.remove()
@@ -303,20 +302,20 @@ class Minesweeper {
                         }
                     })
                     if (isFlagHere && isMineHere) {
-                        blokje.innerHTML = ""
+                        tile.innerHTML = ""
                         let marking = document.createElement("div")
                         marking.innerText = "🚩"
-                        marking.classList.add("innerBlokje")
+                        marking.classList.add("innerTile")
                         marking.classList.add("marking")
-                        blokje.append(marking)
+                        tile.append(marking)
                     }
                     if (isFlagHere && !isMineHere) {
-                        blokje.innerHTML = ""
+                        tile.innerHTML = ""
                         let marking = document.createElement("div")
                         marking.innerText = "❌"
-                        marking.classList.add("innerBlokje")
+                        marking.classList.add("innerTile")
                         marking.classList.add("marking")
-                        blokje.append(marking)
+                        tile.append(marking)
                     }
                 }
             }
@@ -332,15 +331,14 @@ class Minesweeper {
         
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
-                let blokje = minefield.children[y].children[x]
-                blokje.firstChild.style.display = "inline-block"
-                blokje.classList.remove("blokjeOnbekend")
+                this.showCell(x, y)
+                let tile = minefield.children[y].children[x]
                 
                 // Replaces mines with flags
-                if (blokje.children.length > 1) {
+                if (tile.children.length > 1) {
                     let isMineHere = false
                     let isFlagHere = false
-                    Array.from(blokje.children).forEach((x) => {
+                    Array.from(tile.children).forEach((x) => {
                         if (x.innerText === "🚩") {
                             isFlagHere = true
                             x.remove()
@@ -353,12 +351,12 @@ class Minesweeper {
                         }
                     })
                     if (isFlagHere && isMineHere) {
-                        blokje.innerHTML = ""
+                        tile.innerHTML = ""
                         let marking = document.createElement("div")
                         marking.innerText = "🚩"
-                        marking.classList.add("innerBlokje")
+                        marking.classList.add("innerTile")
                         marking.classList.add("marking")
-                        blokje.append(marking)
+                        tile.append(marking)
                     }
                 }
             }
@@ -579,6 +577,10 @@ class Minesweeper {
 
     // Clears surrounding tiles if its number aligns with the amount of marked flags
     quickClear(x, y) {
+        if (this.minefield.children[y].children[x].classList.contains("tileUndiscovered")) {
+            return
+        }
+
         let clearList = []
         let mineCount = 0
         let flagCount = 0
@@ -740,7 +742,7 @@ class Minesweeper {
     }
 
     endOfTurn() {
-        if (minefield.querySelectorAll(".blokjeMine").length === minefield.querySelectorAll(".blokjeOnbekend").length) {
+        if (minefield.querySelectorAll(".mine").length === minefield.querySelectorAll(".tileUndiscovered").length) {
             // Prevents triggering twice if you're going world record pace
             if (!this.gameEnded) {
                 this.gameWin()
@@ -750,41 +752,41 @@ class Minesweeper {
     
     isCloseTilesUncovered(x, y) {
         if ((y - 1) >= 0) { // UP
-            if (this.minefield.children[y - 1].children[x].classList.contains("blokjeOnbekend")) {
+            if (this.minefield.children[y - 1].children[x].classList.contains("tileUndiscovered")) {
                 return false
             }
             if ((x - 1) >= 0) { // UP-LEFT
-                if (this.minefield.children[y - 1].children[x - 1].classList.contains("blokjeOnbekend")) {
+                if (this.minefield.children[y - 1].children[x - 1].classList.contains("tileUndiscovered")) {
                     return false
                 }
             }
         }
         if ((y + 1) < this.gridSize.y) { // DOWN
-            if (this.minefield.children[y + 1].children[x].classList.contains("blokjeOnbekend")) {
+            if (this.minefield.children[y + 1].children[x].classList.contains("tileUndiscovered")) {
                 return false
             }
             if ((x + 1) < this.gridSize.x) { // DOWN-RIGHT
-                if (this.minefield.children[y + 1].children[x + 1].classList.contains("blokjeOnbekend")) {
+                if (this.minefield.children[y + 1].children[x + 1].classList.contains("tileUndiscovered")) {
                     return false
                 }
             }
         }
         if ((x - 1) >= 0) { // LEFT
-            if (this.minefield.children[y].children[x - 1].classList.contains("blokjeOnbekend")) {
+            if (this.minefield.children[y].children[x - 1].classList.contains("tileUndiscovered")) {
                 return false
             }
             if ((y + 1) < this.gridSize.y) { // DOWN-LEFT
-                if (this.minefield.children[y + 1].children[x - 1].classList.contains("blokjeOnbekend")) {
+                if (this.minefield.children[y + 1].children[x - 1].classList.contains("tileUndiscovered")) {
                     return false
                 }
             }
         }
         if ((x + 1) < this.gridSize.x) { // RIGHT
-            if (this.minefield.children[y].children[x + 1].classList.contains("blokjeOnbekend")) {
+            if (this.minefield.children[y].children[x + 1].classList.contains("tileUndiscovered")) {
                 return false
             }
             if ((y - 1) >= 0) { // UP-RIGHT
-                if (this.minefield.children[y - 1].children[x + 1].classList.contains("blokjeOnbekend")) {
+                if (this.minefield.children[y - 1].children[x + 1].classList.contains("tileUndiscovered")) {
                     return false
                 }
             }

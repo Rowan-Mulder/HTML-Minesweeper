@@ -297,7 +297,7 @@ body {
                     display: flex;
                     white-space: nowrap;
                 }
-                    .blokje {
+                    .tile {
                         display: table-cell;
                         position: relative;
                         width: 60px;
@@ -306,54 +306,54 @@ body {
                         background-color: #bbb;
                         font-family: sans-serif;
                     }
-                        .blokje:active {
+                        .tile:active {
                             border-width: 1px;
                             border-color: gray;
                         }
 
-                        .blokjeMine {
+                        .mine {
                             
                         }
-                        .blokjeSafe {
+                        .tileSafe {
                             border-width: 1px;
                             border-color: gray;
                         }
-                            .blokKleur1 {
+                            .tileColor1 {
                                 color: royalblue;
                             }
-                            .blokKleur2 {
+                            .tileColor2 {
                                 color: green;
                             }
-                            .blokKleur3 {
+                            .tileColor3 {
                                 color: red;
                             }
-                            .blokKleur4 {
+                            .tileColor4 {
                                 color: darkblue;
                             }
-                            .blokKleur5 {
+                            .tileColor5 {
                                 color: darkred;
                             }
-                            .blokKleur6 {
+                            .tileColor6 {
                                 color: teal;
                             }
-                            .blokKleur7 {
+                            .tileColor7 {
                                 color: black;
                             }
-                            .blokKleur8 {
+                            .tileColor8 {
                                 color: gray;
                             }
 
-                        .blokjeOnbekend {
+                        .tileUndiscovered {
                             border-width: var(--game-spacer-width);
                             border-style: solid;
                             border-color: #fff #888 #888 #fff;
                         }
-                            .blokjeOnbekend:active {
+                            .tileUndiscovered:active {
                                 border-width: 1px;
                                 border-color: gray;
                             }
                         
-                        .innerBlokje {
+                        .innerTile {
                             position: absolute;
                             left: 50%;
                             top: 50%;
