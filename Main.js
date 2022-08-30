@@ -181,6 +181,8 @@ class Minesweeper {
     calcSurroundingMines() {
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
+                this.clearSurroundingMinesNumber(x, y)
+
                 if (this.minefield.children[y].children[x].classList.contains("blokjeSafe")) {
                     let mineCheckArea = []
                     let mineCount = 0
@@ -224,6 +226,25 @@ class Minesweeper {
                     }
                 }
             }
+        }
+    }
+
+    clearSurroundingMinesNumber(x, y) {
+        let blokjeContent = null
+
+        for (let innerBlokje of this.minefield.children[y].children[x].querySelectorAll(".innerBlokje")) {
+            if (!innerBlokje.classList.contains("marking")) {
+                blokjeContent = innerBlokje
+                break
+            }
+        }
+
+        if (blokjeContent !== null) {
+            Array.from(blokjeContent.classList).forEach((blokjeContentClass) => {
+                if (blokjeContentClass.startsWith("blokKleur")) {
+                    blokjeContent.classList.remove(blokjeContentClass)
+                }
+            })
         }
     }
     
@@ -966,7 +987,7 @@ window.onkeydown = ((evt) => {
 
 /* Notes
 FIXME
-    Moving of first mine to a different spot (for partial fairness) doesn't remove classes in relation to number colors (blokKleur1, blokKleur2, blokKleur3, etc.)
+    It's possible to quick-clear undiscovered tiles and spam quick-clearing results in clearing area's that shouldn't be possible to clear.
     Clear ❓ and 🚩 on all forms of tile showing
 
 TODO
