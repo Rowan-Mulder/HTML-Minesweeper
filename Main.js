@@ -1020,6 +1020,9 @@ TODO
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
         PNG: Original w95 icons, nearest neighbour scaling. (test scaling on chome+firefox)
     Don't remove ? marking, instead add a 'breathing' opacity animation so you can still see which tiles were unclear, without obstructing the innerTile.
+    Settings menu for configurables
+        Tilesize
+        W95 theme colors
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
