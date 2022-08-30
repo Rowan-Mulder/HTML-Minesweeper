@@ -999,6 +999,7 @@ window.onkeydown = ((evt) => {
 /* Notes
 FIXME
     Clear ❓ and 🚩 on all forms of tile showing
+    After ? markings are disabled, hide all ? markings. When it's enabled again, show all ? markings.
 
 TODO
     Continue work on the menus
