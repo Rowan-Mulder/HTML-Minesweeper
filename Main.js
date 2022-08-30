@@ -973,7 +973,17 @@ window.onkeydown = ((evt) => {
         }
     }
 
-
+    // Help-menu specific keybindings
+    if (getComputedStyle(helpMenu.querySelector(".menu")).display === "block") {
+        switch (evt.key) {
+            case "r":
+                recreationBy()
+                break
+            case "a":
+                aboutMinesweeper()
+                break
+        }
+    }
 
     // Global shortcuts
     switch (evt.key) {
