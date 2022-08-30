@@ -998,7 +998,6 @@ window.onkeydown = ((evt) => {
 
 /* Notes
 FIXME
-    It's possible to quick-clear undiscovered tiles and spam quick-clearing results in clearing area's that shouldn't be possible to clear.
     Clear ❓ and 🚩 on all forms of tile showing
 
 TODO
