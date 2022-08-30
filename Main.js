@@ -171,7 +171,6 @@ class Minesweeper {
             })
             if (!minesExcluded || !containsMine) {
                 return randomTile
-                break
             }
             i++
         }
