@@ -20,18 +20,18 @@ body {
 }
 
 
-.borderBlackWhite {
+.border-black-white {
     border-style: solid;
     border-width: var(--game-spacer-width);
     border-color: #888 #fff #fff #888;
 }
-.borderWhiteBlack {
+.border-white-black {
     border-style: solid;
     border-width: var(--game-spacer-width);
     border-color: #fff #888 #888 #fff;
 }
 
-.windowPopup {
+.window-popup {
     position: absolute; /* relative to #minesweeper */
     z-index: 3; /* 1 is the smiley (reset button) and 2 are (dropdown) menus */
     top: 30px;
@@ -41,41 +41,41 @@ body {
     .hidden {
         display: none;
     }
-    .windowPopup table {
+    .window-popup table {
         margin: 3px;
     }
-    .windowPopup input {
+    .window-popup input {
         border-style: solid;
         border-width: var(--w95-menu-spacer-width);
         border-color: #888 #fff #fff #888;
         width: 60px;
     }
-    .windowPopup .wideButton {
+    .window-popup .wide-button {
         margin-top: 0
     }
-    .windowPopup table td {
+    .window-popup table td {
         padding-block: 8px;
     }
-    .windowPopup tr td:nth-child(1) {
+    .window-popup tr td:nth-child(1) {
         padding-right: 25px;
     }
-    #aboutMinesweeperMenu p, #recreationByMenu p {
+    #about-minesweeper-menu p, #recreation-by-menu p {
         margin-block: 0;
     }
-    #aboutMinesweeperMenu table {
+    #about-minesweeper-menu table {
         margin: 15px;
     }
-    #aboutMinesweeperMenu .menuKeyValues {
+    #about-minesweeper-menu .menu-key-values {
         margin: 0;
     }
-        #aboutMinesweeperMenu .menuKeyValues td, #recreationByMenu .menuKeyValues td {
+        #about-minesweeper-menu .menu-key-values td, #recreation-by-menu .menu-key-values td {
             padding-block: 3px;
         }
-        #aboutMinesweeperMenu hr, #recreationByMenu hr {
+        #about-minesweeper-menu hr, #recreation-by-menu hr {
             margin-top: 15px;
         }
 
-.windowWrapper {
+.window-wrapper {
     border-style: solid;
     border-width: var(--w95-menu-spacer-width);
     border-color: var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-topleft);
@@ -83,7 +83,7 @@ body {
     background: var(--w95-theme-bg-color);
     box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
 }
-    .windowTopbar {
+    .window-topbar {
         display: flex;
         flex-flow: row;
         justify-content: space-between;
@@ -92,7 +92,7 @@ body {
         background: var(--w95-theme-button-active-bg-color);
         color: var(--w95-theme-button-active-fg-color);
     }
-        .menuTitle {
+        .menu-title {
             display: flex;
             align-items: center;
             font-weight: bold;
@@ -105,7 +105,7 @@ body {
                 height: 23px;
                 margin-right: 4px;
             }
-            .menuButton {
+            .menu-button {
                 border-style: solid;
                 border-width: var(--w95-menu-spacer-width);
                 background: var(--w95-theme-bg-color);
@@ -113,52 +113,52 @@ body {
                 margin: 2px;
                 border-color: #fff #888 #888 #fff;
             }
-                .menuButton:hover {
+                .menu-button:hover {
                     /*background-color: #aaa;*/
                 }
-                .menuButton:active {
+                .menu-button:active {
                     border-color: #888 #fff #fff #888;
                 }
-                .windowCloseIcon {
+                .window-close-icon {
                     background: url(images/menuClose.svg);
                     background-size: contain;
                     background-repeat: no-repeat;
                 }
-                .menuButtonIcon {
+                .menu-button-icon {
                     display: block;
                     margin: 3px;
                     width: 11px;
                     height: 11px;
                 }
-                .menuButton:active .menuButtonIcon {
+                .menu-button:active .menu-button-icon {
                     margin: 4px 2px 2px 4px;
                 }
-                .wideButton {
+                .wide-button {
                     padding-inline: 18px;
                 }
-                    .wideButton .menuButtonIcon {
+                    .wide-button .menu-button-icon {
                         width: auto;
                         height: auto;
                         margin: 2px;
                     }
-                    .wideButton:active .menuButtonIcon {
+                    .wide-button:active .menu-button-icon {
                         margin: 3px 1px 1px 3px;
                     }
-                .spreadSpan {
+                .spread-span {
                     display: flex;
                     justify-content: space-between;
                 }
-                    .spreadSpan>span:nth-child(1) {
+                    .spread-span>span:nth-child(1) {
                         margin-right: 15px;
                     }
 
 
 
-#gameContainer {
+#game-container {
     display: flex;
     height: 100vh;
 }
-    #minesweeperWrapper {
+    #minesweeper-wrapper {
         display: flex;
         flex-flow: column;
         margin: auto;
@@ -175,7 +175,7 @@ body {
             flex-flow: row;
             user-select: none;
         }
-            .w95MenuButton {
+            .w95-menu-button {
                 border: none;
                 background: none;
                 position: relative;
@@ -183,14 +183,14 @@ body {
                 padding: 5px 10px;
                 color: var(--w95-theme-button-fg-color);
             }
-                .w95MenuButton > span {
+                .w95-menu-button > span {
                     pointer-events: none;
                 }
-            .w95MenuButton:hover, .w95MenuButton:focus {
+            .w95-menu-button:hover, .w95-menu-button:focus {
                 color: var(--w95-theme-button-active-fg-color);
                 background: var(--w95-theme-button-active-bg-color);
             }
-            .w95MenuButton:focus .menu {
+            .w95-menu-button:focus .menu {
                 display: block;
             }
                 .menu {
@@ -246,7 +246,7 @@ body {
                 font-size: 30px;
                 font-family: Orbitron, monospace;
             }
-                #minesLeft {
+                #mines-left {
                     display: inline-block;
                     position: absolute;
                     left: 10px;
@@ -259,7 +259,7 @@ body {
                     user-select: none;
                 }
 
-                #restartButton {
+                #restart-button {
                     position: absolute;
                     top: 50%;
                     left: 50%;
@@ -276,7 +276,7 @@ body {
                         height: 30px;
                     }
                 
-                #gameTimeCounter {
+                #game-time-counter {
                     display: inline-block;
                     position: absolute;
                     right: 10px;
@@ -314,46 +314,46 @@ body {
                         .mine {
                             
                         }
-                        .tileSafe {
+                        .tile-safe {
                             border-width: 1px;
                             border-color: gray;
                         }
-                            .tileColor1 {
+                            .tile-color1 {
                                 color: royalblue;
                             }
-                            .tileColor2 {
+                            .tile-color2 {
                                 color: green;
                             }
-                            .tileColor3 {
+                            .tile-color3 {
                                 color: red;
                             }
-                            .tileColor4 {
+                            .tile-color4 {
                                 color: darkblue;
                             }
-                            .tileColor5 {
+                            .tile-color5 {
                                 color: darkred;
                             }
-                            .tileColor6 {
+                            .tile-color6 {
                                 color: teal;
                             }
-                            .tileColor7 {
+                            .tile-color7 {
                                 color: black;
                             }
-                            .tileColor8 {
+                            .tile-color8 {
                                 color: gray;
                             }
 
-                        .tileUndiscovered {
+                        .tile-undiscovered {
                             border-width: var(--game-spacer-width);
                             border-style: solid;
                             border-color: #fff #888 #888 #fff;
                         }
-                            .tileUndiscovered:active {
+                            .tile-undiscovered:active {
                                 border-width: 1px;
                                 border-color: gray;
                             }
                         
-                        .innerTile {
+                        .inner-tile {
                             position: absolute;
                             left: 50%;
                             top: 50%;

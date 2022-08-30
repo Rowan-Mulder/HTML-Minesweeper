@@ -37,16 +37,16 @@
         <meta property="og:site_name" content="HTML Minesweeper">
     </head>
     <body>
-        <div id="gameContainer">
-            <div id="minesweeperWrapper">
-                <div class="windowTopbar">
-                    <span class="menuTitle"><img alt="" src="images/mine.svg"><span>Minesweeper</span></span>
-                    <button class="menuButton">
-                        <span class="windowCloseIcon menuButtonIcon"></span>
+        <div id="game-container">
+            <div id="minesweeper-wrapper">
+                <div class="window-topbar">
+                    <span class="menu-title"><img alt="" src="images/mine.svg"><span>Minesweeper</span></span>
+                    <button class="menu-button">
+                        <span class="window-close-icon menu-button-icon"></span>
                     </button>
                 </div>
                 <div id="menus">
-                    <button id="gameMenu" class="w95MenuButton">
+                    <button id="game-menu" class="w95-menu-button">
                         <span><u>G</u>ame</span>
                         <div class="menu">
                             <table>
@@ -62,22 +62,22 @@
                                     </tr>
                                     
                                     <tr onclick="restart({difficulty: 'beginner'})">
-                                        <td id="difficultyBeginnerCheck">✔</td>
+                                        <td id="difficulty-beginner-check">✔</td>
                                         <td><u>B</u>eginner</td>
                                         <td></td>
                                     </tr>
                                     <tr onclick="restart({difficulty: 'intermediate'})">
-                                        <td id="difficultyIntermediateCheck"></td>
+                                        <td id="difficulty-intermediate-check"></td>
                                         <td><u>I</u>ntermediate</td>
                                         <td></td>
                                     </tr>
                                     <tr onclick="restart({difficulty: 'expert'})">
-                                        <td id="difficultyExpertCheck"></td>
+                                        <td id="difficulty-expert-check"></td>
                                         <td><u>E</u>xpert</td>
                                         <td></td>
                                     </tr>
                                     <tr onclick="customFieldOpen()">
-                                        <td id="difficultyCustomCheck"></td>
+                                        <td id="difficulty-custom-check"></td>
                                         <td><u>C</u>ustom...</td>
                                         <td></td>
                                     </tr>
@@ -87,7 +87,7 @@
                                     </tr>
                                     
                                     <tr onclick="toggleMarkings()">
-                                        <td id="markingsCheck">✔</td>
+                                        <td id="markings-check">✔</td>
                                         <td><u>M</u>arks (?)</td>
                                         <td></td>
                                     </tr>
@@ -120,7 +120,7 @@
                             </table>
                         </div>
                     </button>
-                    <button id="helpMenu" class="w95MenuButton">
+                    <button id="help-menu" class="w95-menu-button">
                         <span><u>H</u>elp</span>
                         <div class="menu">
                             <table>
@@ -145,59 +145,59 @@
                         </div>
                     </button>
                 </div>
-                <div id="minesweeper" class="borderWhiteBlack">
-                    <div id="scoreboard" class="borderBlackWhite">
-                        <div id="minesLeft">000</div>
-                        <button id="restartButton" class="menuButton" onclick="restart()">
-                            <span id="smiley" class="menuButtonIcon"></span>
+                <div id="minesweeper" class="border-white-black">
+                    <div id="scoreboard" class="border-black-white">
+                        <div id="mines-left">000</div>
+                        <button id="restart-button" class="menu-button" onclick="restart()">
+                            <span id="smiley" class="menu-button-icon"></span>
                         </button>
-                        <div id="gameTimeCounter">000</div>
+                        <div id="game-time-counter">000</div>
                     </div>
 
-                    <div id="minefield" class="borderBlackWhite"></div>
+                    <div id="minefield" class="border-black-white"></div>
 
-                    <div id="customFieldPopupMenu" class="windowWrapper windowPopup hidden">
-                        <div class="windowTopbar">
-                            <span class="menuTitle">Custom Field</span>
-                            <button class="menuButton" onclick="closePopupWindow(this)">
-                                <span class="windowCloseIcon menuButtonIcon"></span>
+                    <div id="custom-field-popup-menu" class="window-wrapper window-popup hidden">
+                        <div class="window-topbar">
+                            <span class="menu-title">Custom Field</span>
+                            <button class="menu-button" onclick="closePopupWindow(this)">
+                                <span class="window-close-icon menu-button-icon"></span>
                             </button>
                         </div>
                         <div>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><label for="inputHeight"><u>H</u>eight:</label></td>
-                                        <td><input id="inputHeight" type="text" value="10"/></td>
+                                        <td><label for="input-height"><u>H</u>eight:</label></td>
+                                        <td><input id="input-height" type="text" value="10"/></td>
                                         <td rowspan="3" style="vertical-align: top">
                                             <div style="display: flex; flex-direction: column;">
-                                                <button class="menuButton wideButton" onclick="customFieldOK(this)">
-                                                    <span class="menuButtonIcon">OK</span>
+                                                <button class="menu-button wide-button" onclick="customFieldOK(this)">
+                                                    <span class="menu-button-icon">OK</span>
                                                 </button>
-                                                <button class="menuButton wideButton" onclick="closePopupWindow(this)">
-                                                    <span class="menuButtonIcon">Cancel</span>
+                                                <button class="menu-button wide-button" onclick="closePopupWindow(this)">
+                                                    <span class="menu-button-icon">Cancel</span>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label for="inputWidth"><u>W</u>idth:</label></td>
-                                        <td><input id="inputWidth" type="text" value="10"/></td>
+                                        <td><label for="input-width"><u>W</u>idth:</label></td>
+                                        <td><input id="input-width" type="text" value="10"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="inputMines"><u>M</u>ines:</label></td>
-                                        <td><input id="inputMines" type="text" value="10"/></td>
+                                        <td><label for="input-mines"><u>M</u>ines:</label></td>
+                                        <td><input id="input-mines" type="text" value="10"/></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <div id="aboutMinesweeperMenu" class="windowWrapper windowPopup hidden">
-                        <div class="windowTopbar">
-                            <span class="menuTitle">About Minesweeper</span>
-                            <button class="menuButton" onclick="closePopupWindow(this)">
-                                <span class="windowCloseIcon menuButtonIcon"></span>
+                    <div id="about-minesweeper-menu" class="window-wrapper window-popup hidden">
+                        <div class="window-topbar">
+                            <span class="menu-title">About Minesweeper</span>
+                            <button class="menu-button" onclick="closePopupWindow(this)">
+                                <span class="window-close-icon menu-button-icon"></span>
                             </button>
                         </div>
                         <div>
@@ -216,7 +216,7 @@
                                                 <p>YourName</p>
                                                 <p>YourCompany</p>
                                                 <hr>
-                                                <table class="menuKeyValues">
+                                                <table class="menu-key-values">
                                                     <tbody>
                                                         <tr>
                                                             <td>Physical Memory Available to Windows:</td>
@@ -236,11 +236,11 @@
                         </div>
                     </div>
 
-                    <div id="recreationByMenu" class="windowWrapper windowPopup hidden">
-                        <div class="windowTopbar">
-                            <span class="menuTitle">Recreation by...</span>
-                            <button class="menuButton" onclick="closePopupWindow(this)">
-                                <span class="windowCloseIcon menuButtonIcon"></span>
+                    <div id="recreation-by-menu" class="window-wrapper window-popup hidden">
+                        <div class="window-topbar">
+                            <span class="menu-title">Recreation by...</span>
+                            <button class="menu-button" onclick="closePopupWindow(this)">
+                                <span class="window-close-icon menu-button-icon"></span>
                             </button>
                         </div>
                         <div>
@@ -252,7 +252,7 @@
                                                 <p>Rowan Mulder</p>
                                                 <p>2022</p>
                                                 <hr>
-                                                <table class="menuKeyValues">
+                                                <table class="menu-key-values">
                                                     <tbody>
                                                         <tr>
                                                             <td>Other projects:</td>
