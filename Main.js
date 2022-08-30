@@ -21,7 +21,7 @@ class Minesweeper {
     
     init() {
         this.placeMines()
-        this.calcSurroundingMines()
+        this.calcSurroundingMinesNumbers()
         this.hideAllCells()
     }
     
@@ -70,7 +70,7 @@ class Minesweeper {
                                 randomTile.classList.remove("tileSafe")
                                 randomTile.classList.add("mine")
                                 
-                                this.calcSurroundingMines()
+                                this.calcSurroundingMinesNumbers()
                                 this.uncoverCloseTiles(x, y)
                             } else {
                                 this.gameOver(x, y)
@@ -177,7 +177,7 @@ class Minesweeper {
         return null
     }
     
-    calcSurroundingMines() {
+    calcSurroundingMinesNumbers() {
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.clearSurroundingMinesNumber(x, y)
@@ -423,7 +423,7 @@ class Minesweeper {
         smileyChange("regular")
         
         this.placeMines()
-        this.calcSurroundingMines()
+        this.calcSurroundingMinesNumbers()
         this.hideAllCells()
     }
     
