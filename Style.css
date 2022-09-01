@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Orbitron&display=swap');
 
 :root {
-    --game-spacer-width: 4px;
+    --game-tile-size: 40px;
+    --game-spacer-width: 3px;
 
     --w95-theme-bg-color: #b4c0dc;
     --w95-theme-border-color-topleft: #cfd8e8;
@@ -300,8 +301,8 @@ body {
                     .tile {
                         display: table-cell;
                         position: relative;
-                        width: 60px;
-                        height: 60px;
+                        width: var(--game-tile-size);
+                        height: var(--game-tile-size);
                         cursor: pointer;
                         background-color: #bbb;
                         font-family: sans-serif;
