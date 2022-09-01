@@ -1017,7 +1017,6 @@ FIXME
 TODO
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
-        PNG: Original w95 icons, nearest neighbour scaling. (test scaling on chome+firefox)
     Don't remove ? marking, instead add a 'breathing' opacity animation so you can still see which tiles were unclear, without obstructing the innerTile.
     Settings menu for configurables
         Tilesize
