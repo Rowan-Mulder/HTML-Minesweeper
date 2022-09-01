@@ -1015,9 +1015,6 @@ FIXME
     Clear ❓ and 🚩 on all forms of tile showing
 
 TODO
-    Continue work on the menus
-        Help-menu:
-            Add a link to my other projects in https://rowan-mulder.github.io/
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
         PNG: Original w95 icons, nearest neighbour scaling. (test scaling on chome+firefox)
