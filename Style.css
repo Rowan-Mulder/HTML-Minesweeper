@@ -385,3 +385,25 @@ body {
                                 .mine {
                                     background-image: url(images/mine.svg);
                                 }
+
+/* Animations */
+@keyframes animationBreathing {
+    0%   {opacity: 100%; filter: drop-shadow(0 0 5px #FFF)}
+    50%  {opacity: 0;    filter: drop-shadow(0 0 5px #FFF0)}
+    100% {opacity: 100%; filter: drop-shadow(0 0 5px #FFF)}
+}
+@keyframes animationFadeout {
+    from {opacity: 100%}
+    to   {opacity: 0}
+}
+
+.animationBreathing {
+    animation-name: animationBreathing;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+.animationFadeout {
+    animation-name: animationFadeout;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+ }

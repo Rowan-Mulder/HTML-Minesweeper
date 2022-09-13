@@ -277,6 +277,43 @@ class Minesweeper {
     
     showTile(x, y) {
         let tile = this.minefield.children[y].children[x]
+
+        if (tile.querySelector(".mine")) {
+            if (tile.querySelector(".markingQuestionmark")) {
+                tile.querySelector(".markingQuestionmark").classList.add("animationBreathing")
+            }
+            if (tile.querySelector(".markingFlag")) {
+                tile.querySelector(".mine").remove()
+            }
+        } else {
+            if (tile.querySelector(".markingQuestionmark")) {
+                if (game.gameEnded) {
+                    if (tile.querySelector(".markingQuestionmark").classList.contains("animationFadeout")) {
+                        tile.querySelector(".markingQuestionmark").remove()
+                    } else {
+                        tile.querySelector(".markingQuestionmark").classList.add("animationBreathing")
+                    }
+                } else {
+                    if (!tile.querySelector(".markingQuestionmark").classList.contains("animationFadeout")) {
+                        tile.querySelector(".markingQuestionmark").classList.add("animationFadeout")
+                    }
+                }
+            }
+            if (tile.querySelector(".markingFlag")) {
+                if (game.gameEnded) {
+                    if (tile.querySelector(".markingFlag").classList.contains("animationFadeout")) {
+                        tile.querySelector(".markingFlag").remove()
+                    } else {
+                        tile.querySelector(".markingFlag").classList.add("animationFadeout")
+                    }
+                } else {
+                    if (!tile.querySelector(".markingFlag").classList.contains("animationFadeout")) {
+                        tile.querySelector(".markingFlag").classList.add("animationFadeout")
+                    }
+                }
+            }
+        }
+
         tile.firstChild.style.display = "inline-block"
         tile.classList.remove("tile-undiscovered")
     }
@@ -314,10 +351,6 @@ class Minesweeper {
                     Array.from(tile.children).forEach((x) => {
                         if (x.classList.contains("markingFlag")) {
                             isFlagHere = true
-                            x.remove()
-                        }
-                        if (x.classList.contains("markingQuestionmark")) {
-                            x.remove()
                         }
                         if (x.classList.contains("mine")) {
                             isMineHere = true
@@ -350,7 +383,7 @@ class Minesweeper {
         this.stopTimer()
         this.gameEnded = true
         smileyChange("won")
-        
+
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.showTile(x, y)
@@ -366,9 +399,6 @@ class Minesweeper {
                         if (tileContent.classList.contains("markingFlag")) {
                             isFlagHere = true
                             tileContent.remove()
-                        }
-                        if (tileContent.classList.contains("markingQuestionmark")) {
-                            //tileContent.remove() // TODO: Don't remove it, rather add a breathing animation to show both the mine + marking
                         }
                         if (tileContent.classList.contains("mine")) {
                             isMineHere = true
