@@ -246,6 +246,10 @@ class Minesweeper {
     }
 
     clearSurroundingMinesNumber(x, y) {
+        if (x < 0 || y < 0) {
+            console.error(`Invalid index for clearing surrounding mines number: x:${x},y:${y}`)
+        }
+
         let tileContent = null
 
         for (let innerTile of this.minefield.children[y].children[x].querySelectorAll(".inner-tile")) {
