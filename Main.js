@@ -236,10 +236,9 @@ class Minesweeper {
                     }
                     
                     if (mineCount > 0) {
+                        // TODO: Similar to the assumption of firstChild being a mine, make sure to check all tile content (possibly by iterating over classList to check if any class starts with "tile-color")).
                         this.minefield.children[y].children[x].firstChild.innerText = mineCount
-                        this.minefield.children[y].children[x].firstChild.classList.add("tile-color" + mineCount)
-                    } else {
-                        this.minefield.children[y].children[x].firstChild.innerText = ""
+                        this.minefield.children[y].children[x].firstChild.classList.add(`tile-color${mineCount}`)
                     }
                 }
             }
