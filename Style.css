@@ -224,16 +224,20 @@ body {
                             .menu tr>td:nth-child(3) {
                                 padding-right: 35px;
                             }
-                            .divider hr {
-                                margin-block: 2px;
-                                border-width: 1px 0;
-                                border-top-color: #0000; /* hr's top-border is darkened somehow. this is a bodgefix */
-                                background: var(--w95-theme-border-color-bottomright);
-                                border-bottom-color: var(--w95-theme-border-color-topleft);
+                            .divider {
+                                cursor: auto;
                             }
+                                .divider hr {
+                                    margin-block: 2px;
+                                    border-width: 1px 0;
+                                    border-top-color: #0000; /* hr's top-border is darkened somehow. this is a bodgefix */
+                                    background: var(--w95-theme-border-color-bottomright);
+                                    border-bottom-color: var(--w95-theme-border-color-topleft);
+                                }
                         .menu tr[disabled] {
                             opacity: 0.5;
                             font-style: italic;
+                            cursor: auto;
                         }
         #minesweeper {
             position: relative; /* for config/info windows */
