@@ -134,6 +134,15 @@ class Minesweeper {
                         marking.classList.add("inner-tile")
                         marking.classList.add("marking")
                         tile.append(marking)
+
+                        // Updates the visualized number of remaining mines
+                        let flagCount = this.minefield.querySelectorAll(".markingFlag").length
+                        let mineCount = this.minefield.querySelectorAll(".mine").length - flagCount
+                        if (mineCount >= 0) {
+                            this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount
+                        } else {
+                            this.minesLeft.innerText = "-" + "00".substr(Math.abs(mineCount).toString().length, 3) + Math.abs(mineCount)
+                        }
                     }
                     if (evt.button === 2 && evt.buttons === 1) {
                         this.quickClear(x, y)
