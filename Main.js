@@ -251,6 +251,7 @@ class Minesweeper {
             Array.from(tileContent.classList).forEach((tileContentClass) => {
                 if (tileContentClass.startsWith("tile-color")) {
                     tileContent.classList.remove(tileContentClass)
+                    tileContent.innerText = ""
                 }
             })
         }
