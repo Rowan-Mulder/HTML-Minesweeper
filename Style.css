@@ -299,7 +299,6 @@ body {
                     white-space: nowrap;
                 }
                     .tile {
-                        display: table-cell;
                         position: relative;
                         width: var(--game-tile-size);
                         height: var(--game-tile-size);
@@ -351,12 +350,7 @@ body {
                         }
                         
                         .inner-tile {
-                            position: absolute;
-                            left: 50%;
-                            top: 50%;
-                            transform: translate(-50%, -50%);
-                            line-height: 0;
-                            font-size: 40px;
+                            font-size: 30px;
                             font-weight: bold;
                         }
                             .marking {
