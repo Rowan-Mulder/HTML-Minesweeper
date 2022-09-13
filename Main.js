@@ -343,7 +343,7 @@ class Minesweeper {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.showTile(x, y)
 
-                //*/ Replaces unflagged mines with flags (Officially how it's implemented in w95, but could be a confusing summary when game has won)
+                /*/ Replaces unflagged mines with flags (Officially how it's implemented in w95, but could be a confusing summary when game has won)
                 let tile = minefield.children[y].children[x]
 
                 // TODO: Assumption firstChild is a mine. Change this.
