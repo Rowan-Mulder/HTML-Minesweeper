@@ -44,10 +44,10 @@ class Minesweeper {
                         let containsFlag = false
                         let containsMine = false
                         Array.from(tile.children).forEach((x) => {
-                            if (x.innerText === "🚩") {
+                            if (x.classList.contains("markingFlag")) {
                                 containsFlag = true
                             }
-                            if (x.innerText === "💣") {
+                            if (x.classList.contains("mine")) {
                                 containsMine = true
                             }
                         })
@@ -57,16 +57,21 @@ class Minesweeper {
                         } else if (containsMine && evt.buttons === 0) {
                             if (!this.firstClickDone) { // Moves first clicked mine to a different spot. It doesn't make the rest of the game fair though.
                                 let randomTile = this.getRandomTile(true)
-                                
-                                tile.firstChild.innerText = ""
-                                tile.classList.remove("mine")
+
+                                // TODO: (1/3) Assuming firstChild will always be a mine (among markings) feels wrong. Browsers could change behavior which could break this. This method isn't called that often, so a little less efficient code here for safety is acceptable.
+                                tile.firstChild.classList.remove("mine")
+                                tile.firstChild.classList.remove("marking")
                                 tile.classList.add("tile-safe")
                                 
                                 if (randomTile === null) { // If it can't find any empty tiles after searching ten times the amount of current tiles, you're either really lucky or there aren't any empty tiles left.
                                     this.gameWin()
                                     return
                                 }
-                                randomTile.firstChild.innerText = "💣"
+
+                                // TODO: (2/3) Assuming firstChild will always be a mine (among markings) feels wrong. Browsers could change behavior which could break this. This method isn't called that often, so a little less efficient code here for safety is acceptable.
+                                this.clearSurroundingMinesNumber(Array.from(randomTile.parentElement.children).indexOf(randomTile), Array.from(randomTile.parentElement.parentElement.children).indexOf(randomTile.parentElement))
+                                randomTile.firstChild.classList.add("mine")
+                                randomTile.firstChild.classList.add("marking")
                                 randomTile.classList.remove("tile-safe")
                                 randomTile.classList.add("mine")
                                 
@@ -104,13 +109,19 @@ class Minesweeper {
                         }
 
                         // Cycles through markings (also clears up possible duplicates by potential bugs, hence the weird code)
-                        let markings = (this.markingsToggled) ? ["🚩", "❓"] : ["🚩"]
+                        let markings = (this.markingsToggled) ? ["markingFlag", "markingQuestionmark"] : ["markingFlag"]
                         let previousMarkingIndex = -1
                         if (tile.children.length > 1) {
                             Array.from(tile.children).forEach((x) => {
-                                if (x.classList.contains("marking")) {
-                                    if (markings.indexOf(x.innerText) > previousMarkingIndex) {
-                                        previousMarkingIndex = markings.indexOf(x.innerText)
+                                if (x.classList.contains("markingFlag")) {
+                                    if (markings.indexOf("markingFlag") > previousMarkingIndex) {
+                                        previousMarkingIndex = markings.indexOf("markingFlag")
+                                    }
+                                    x.remove()
+                                }
+                                if (x.classList.contains("markingQuestionmark")) {
+                                    if (markings.indexOf("markingQuestionmark") > previousMarkingIndex) {
+                                        previousMarkingIndex = markings.indexOf("markingQuestionmark")
                                     }
                                     x.remove()
                                 }
@@ -120,10 +131,7 @@ class Minesweeper {
                             }
                         }
                         let marking = document.createElement("div")
-                        marking.innerText = markings[previousMarkingIndex + 1]
-                        if (marking.innerText === markings[1]) {
-                            marking.style.filter = "sepia() saturate(50) hue-rotate(180deg)"
-                        }
+                        marking.classList.add(`${markings[previousMarkingIndex + 1]}`)
                         marking.classList.add("inner-tile")
                         marking.classList.add("marking")
                         tile.append(marking)
@@ -134,15 +142,16 @@ class Minesweeper {
                     }
                 })
 
+                // Mine placement
                 if (Math.random() <= this.mineChance) {
                     let mineContainer = document.createElement("div")
-
-                    mineContainer.innerHTML = "💣"
+                    mineContainer.classList.add("mine")
+                    mineContainer.classList.add("marking")
                     mineContainer.classList.add("inner-tile")
-                    tile.classList.add("mine")
                     tile.append(mineContainer)
+                    tile.classList.add("tile-unsafe")
                     let mineCount = Number(this.minesLeft.innerText) + 1
-                    this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount
+                    this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount // TODO: This can be optimised by only being called once when minefield is done generating.
                 } else {
                     let noMine = document.createElement("div")
                     noMine.classList.add("inner-tile")
@@ -165,7 +174,7 @@ class Minesweeper {
         ) {
             let containsMine = false
             Array.from(randomTile.children).forEach((x) => {
-                if (x.innerText === "💣") {
+                if (x.classList.contains("mine")) {
                     containsMine = true
                 }
             })
@@ -187,32 +196,33 @@ class Minesweeper {
                     let mineCount = 0
 
                     if ((y - 1) >= 0) {
-                        mineCheckArea.push(this.minefield.children[y - 1].children[x])
+                        mineCheckArea.push(this.minefield.children[y - 1].children[x]) // UP
                         if ((x - 1) >= 0) {
-                            mineCheckArea.push(this.minefield.children[y - 1].children[x - 1])
+                            mineCheckArea.push(this.minefield.children[y - 1].children[x - 1]) // UP-lEFT
                         }
                     }
                     if ((y + 1) < this.gridSize.y) {
-                        mineCheckArea.push(this.minefield.children[y + 1].children[x])
+                        mineCheckArea.push(this.minefield.children[y + 1].children[x]) // DOWN
                         if ((x + 1) < this.gridSize.x) {
-                            mineCheckArea.push(this.minefield.children[y + 1].children[x + 1])
+                            mineCheckArea.push(this.minefield.children[y + 1].children[x + 1]) // DOWN-RIGHT
                         }
                     }
                     if ((x - 1) >= 0) {
-                        mineCheckArea.push(this.minefield.children[y].children[x - 1])
+                        mineCheckArea.push(this.minefield.children[y].children[x - 1]) // LEFT
                         if ((y + 1) < this.gridSize.y) {
-                            mineCheckArea.push(this.minefield.children[y + 1].children[x - 1])
+                            mineCheckArea.push(this.minefield.children[y + 1].children[x - 1]) // DOWN-LEFT
                         }
                     }
                     if ((x + 1) < this.gridSize.x) {
-                        mineCheckArea.push(this.minefield.children[y].children[x + 1])
+                        mineCheckArea.push(this.minefield.children[y].children[x + 1]) // RIGHT
                         if ((y - 1) >= 0) {
-                            mineCheckArea.push(this.minefield.children[y - 1].children[x + 1])
+                            mineCheckArea.push(this.minefield.children[y - 1].children[x + 1]) // UP-RIGHT
                         }
                     }
                     
                     for (let tile of mineCheckArea) {
-                        if (tile.firstChild.innerText === "💣") {
+                        // TODO: (3/3) Assuming firstChild will always be a mine (among markings) feels wrong. Browsers could change behavior which could break this. This method isn't called that often, so a little less efficient code here for safety is acceptable.
+                        if (tile.firstChild.classList.contains("mine")) {
                             mineCount++
                         }
                     }
@@ -290,21 +300,21 @@ class Minesweeper {
                     let isMineHere = false
                     let isFlagHere = false
                     Array.from(tile.children).forEach((x) => {
-                        if (x.innerText === "🚩") {
+                        if (x.classList.contains("markingFlag")) {
                             isFlagHere = true
                             x.remove()
                         }
-                        if (x.innerText === "❓") {
+                        if (x.classList.contains("markingQuestionmark")) {
                             x.remove()
                         }
-                        if (x.innerText === "💣") {
+                        if (x.classList.contains("mine")) {
                             isMineHere = true
                         }
                     })
                     if (isFlagHere && isMineHere) {
                         tile.innerHTML = ""
                         let marking = document.createElement("div")
-                        marking.innerText = "🚩"
+                        marking.classList.add("markingFlag")
                         marking.classList.add("inner-tile")
                         marking.classList.add("marking")
                         tile.append(marking)
@@ -312,7 +322,7 @@ class Minesweeper {
                     if (isFlagHere && !isMineHere) {
                         tile.innerHTML = ""
                         let marking = document.createElement("div")
-                        marking.innerText = "❌"
+                        marking.classList.add("markingCross")
                         marking.classList.add("inner-tile")
                         marking.classList.add("marking")
                         tile.append(marking)
@@ -333,27 +343,26 @@ class Minesweeper {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.showCell(x, y)
                 let tile = minefield.children[y].children[x]
-                
-                // Replaces mines with flags
-                if (tile.children.length > 1) {
+
+                // TODO: Assumption firstChild is a mine. Change this.
+                if (tile.firstChild.classList.contains("mine")) {
                     let isMineHere = false
                     let isFlagHere = false
-                    Array.from(tile.children).forEach((x) => {
-                        if (x.innerText === "🚩") {
+                    Array.from(tile.children).forEach((tileContent) => {
+                        if (tileContent.classList.contains("markingFlag")) {
                             isFlagHere = true
-                            x.remove()
+                            tileContent.remove()
                         }
-                        if (x.innerText === "❓") {
-                            x.remove()
+                        if (tileContent.classList.contains("markingQuestionmark")) {
+                            //tileContent.remove() // TODO: Don't remove it, rather add a breathing animation to show both the mine + marking
                         }
-                        if (x.innerText === "💣") {
+                        if (tileContent.classList.contains("mine")) {
                             isMineHere = true
                         }
                     })
-                    if (isFlagHere && isMineHere) {
-                        tile.innerHTML = ""
+                    if (!isFlagHere && isMineHere) {
                         let marking = document.createElement("div")
-                        marking.innerText = "🚩"
+                        marking.classList.add("markingFlag")
                         marking.classList.add("inner-tile")
                         marking.classList.add("marking")
                         tile.append(marking)
@@ -585,14 +594,15 @@ class Minesweeper {
         let flagCount = 0
         let tempContainsFlag = false
 
+        // TODO: check if multidimensional loop tileContent conflicts between layers (I'm rusty)
         if ((y - 1) >= 0) {
             // UP
-            Array.from(this.minefield.children[y - 1].children[x].children).forEach((marking) => {
-                if (marking.innerText === "🚩") {
+            Array.from(this.minefield.children[y - 1].children[x].children).forEach((tileContent) => {
+                if (tileContent.classList.contains("markingFlag")) {
                     flagCount++
                     tempContainsFlag = true
                 }
-                if (marking.innerText === "💣") {
+                if (tileContent.classList.contains("mine")) {
                     mineCount++
                 }
             })
@@ -603,12 +613,12 @@ class Minesweeper {
             }
             if ((x - 1) >= 0) {
                 // UP-LEFT
-                Array.from(this.minefield.children[y - 1].children[x - 1].children).forEach((marking) => {
-                    if (marking.innerText === "🚩") {
+                Array.from(this.minefield.children[y - 1].children[x - 1].children).forEach((tileContent) => {
+                    if (tileContent.classList.contains("markingFlag")) {
                         flagCount++
                         tempContainsFlag = true
                     }
-                    if (marking.innerText === "💣") {
+                    if (tileContent.classList.contains("mine")) {
                         mineCount++
                     }
                 })
@@ -621,12 +631,12 @@ class Minesweeper {
         }
         if ((y + 1) < this.gridSize.y) {
             // DOWN
-            Array.from(this.minefield.children[y + 1].children[x].children).forEach((marking) => {
-                if (marking.innerText === "🚩") {
+            Array.from(this.minefield.children[y + 1].children[x].children).forEach((tileContent) => {
+                if (tileContent.classList.contains("markingFlag")) {
                     flagCount++
                     tempContainsFlag = true
                 }
-                if (marking.innerText === "💣") {
+                if (tileContent.classList.contains("mine")) {
                     mineCount++
                 }
             })
@@ -637,12 +647,12 @@ class Minesweeper {
             }
             if ((x + 1) < this.gridSize.x) {
                 // DOWN-RIGHT
-                Array.from(this.minefield.children[y + 1].children[x + 1].children).forEach((marking) => {
-                    if (marking.innerText === "🚩") {
+                Array.from(this.minefield.children[y + 1].children[x + 1].children).forEach((tileContent) => {
+                    if (tileContent.classList.contains("markingFlag")) {
                         flagCount++
                         tempContainsFlag = true
                     }
-                    if (marking.innerText === "💣") {
+                    if (tileContent.classList.contains("mine")) {
                         mineCount++
                     }
                 })
@@ -655,12 +665,12 @@ class Minesweeper {
         }
         if ((x - 1) >= 0) {
             // LEFT
-            Array.from(this.minefield.children[y].children[x - 1].children).forEach((marking) => {
-                if (marking.innerText === "🚩") {
+            Array.from(this.minefield.children[y].children[x - 1].children).forEach((tileContent) => {
+                if (tileContent.classList.contains("markingFlag")) {
                     flagCount++
                     tempContainsFlag = true
                 }
-                if (marking.innerText === "💣") {
+                if (tileContent.classList.contains("mine")) {
                     mineCount++
                 }
             })
@@ -671,12 +681,12 @@ class Minesweeper {
             }
             if ((y + 1) < this.gridSize.y) {
                 // DOWN-LEFT
-                Array.from(this.minefield.children[y + 1].children[x - 1].children).forEach((marking) => {
-                    if (marking.innerText === "🚩") {
+                Array.from(this.minefield.children[y + 1].children[x - 1].children).forEach((tileContent) => {
+                    if (tileContent.classList.contains("markingFlag")) {
                         flagCount++
                         tempContainsFlag = true
                     }
-                    if (marking.innerText === "💣") {
+                    if (tileContent.classList.contains("mine")) {
                         mineCount++
                     }
                 })
@@ -689,12 +699,12 @@ class Minesweeper {
         }
         if ((x + 1) < this.gridSize.x) {
             // RIGHT
-            Array.from(this.minefield.children[y].children[x + 1].children).forEach((marking) => {
-                if (marking.innerText === "🚩") {
+            Array.from(this.minefield.children[y].children[x + 1].children).forEach((tileContent) => {
+                if (tileContent.classList.contains("markingFlag")) {
                     flagCount++
                     tempContainsFlag = true
                 }
-                if (marking.innerText === "💣") {
+                if (tileContent.classList.contains("mine")) {
                     mineCount++
                 }
             })
@@ -705,12 +715,12 @@ class Minesweeper {
             }
             if ((y - 1) >= 0) {
                 // UP-RIGHT
-                Array.from(this.minefield.children[y - 1].children[x + 1].children).forEach((marking) => {
-                    if (marking.innerText === "🚩") {
+                Array.from(this.minefield.children[y - 1].children[x + 1].children).forEach((tileContent) => {
+                    if (tileContent.classList.contains("markingFlag")) {
                         flagCount++
                         tempContainsFlag = true
                     }
-                    if (marking.innerText === "💣") {
+                    if (tileContent.classList.contains("mine")) {
                         mineCount++
                     }
                 })
@@ -727,8 +737,8 @@ class Minesweeper {
             for (let tile of clearList) {
                 this.uncoverCloseTiles(tile.x, tile.y)
                 if (mineDetonated === null) {
-                    Array.from(this.minefield.children[tile.y].children[tile.x].children).forEach((marking) => {
-                        if (marking.innerText === "💣") {
+                    Array.from(this.minefield.children[tile.y].children[tile.x].children).forEach((tileContent) => {
+                        if (tileContent.classList.contains("mine")) {
                             mineDetonated = {x: tile.x, y: tile.y}
                         }
                     })
@@ -835,14 +845,14 @@ function toggleMarkings() {
 
     if (!game.markingsToggled) { // Hides all earlier placed ? markings
         this.minefield.querySelectorAll(".marking").forEach((marking) => {
-            if (marking.innerText === "❓") {
-                marking.innerText = ""
+            if (marking.classList.contains("markingQuestionmark")) {
+                marking.classList.add("markingQuestionmarkHidden")
             }
         })
     } else { // Shows all earlier hidden ? markings
         this.minefield.querySelectorAll(".marking").forEach((marking) => {
-            if (marking.innerText === "") {
-                marking.innerText = "❓"
+            if (marking.classList.contains("markingQuestionmarkHidden")) {
+                marking.classList.remove("markingQuestionmarkHidden")
             }
         })
     }
@@ -1012,15 +1022,16 @@ window.onkeydown = ((evt) => {
 
 /* Notes
 FIXME
-    Clear ❓ and 🚩 on all forms of tile showing
+    ...
 
 TODO
+    Simplify all for-loops and forEach searches now classes can be directly approached each tile
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
-    Don't remove ? marking, instead add a 'breathing' opacity animation so you can still see which tiles were unclear, without obstructing the innerTile.
     Settings menu for configurables
-        Tilesize
-        W95 theme colors
+        Styling
+            Tilesize
+            W95 theme colors
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?

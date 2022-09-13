@@ -363,3 +363,29 @@ body {
                             font-size: 40px;
                             font-weight: bold;
                         }
+                            .marking {
+                                background-position: center;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                width: calc(100% - (var(--game-spacer-width) * 2));
+                                height: calc(100% - (var(--game-spacer-width) * 2));
+                                margin: var(--game-spacer-width);
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                            }
+                                .markingFlag {
+                                    background-image: url(images/flag.svg);
+                                }
+                                .markingQuestionmark {
+                                    background-image: url(images/questionmark.svg);
+                                }
+                                .markingCross {
+                                    background-image: url(images/cross.svg); /* I would've had 1 file and recolored it, but CSS mask works different on Firefox. It additionally requires a SVG mask element which didn't seem like an easy fix. */
+                                }
+                                .markingQuestionmarkHidden {
+                                    background-image: none;
+                                }
+                                .mine {
+                                    background-image: url(images/mine.svg);
+                                }
