@@ -808,6 +808,9 @@ class Minesweeper {
     }
 }
 
+
+
+
 // Elements
 let minesweeper = document.getElementById("minesweeper")
 let restartButton = document.getElementById("restart-button")
@@ -830,6 +833,7 @@ let mineChance = 0.1
 let uncoverSpeedMs = 40
 
 let game = new Minesweeper(minefield, gameTimeCounter, minesLeft, gridSize, mineChance)
+
 
 
 function restart(options = null) {
@@ -944,10 +948,11 @@ document.addEventListener("mouseup", (evt) => {
         }, 100)
     }
 })
-// Triggers when the mouse leaves the window
-// document.documentElement.addEventListener("mouseleave", (evt) => {
-//
-// })
+/*/ Triggers when the mouse leaves the window
+document.documentElement.addEventListener("mouseleave", (evt) => {
+
+})
+//*/
 // Triggers when the mouse enters the window
 document.documentElement.addEventListener("mouseenter", (evt) => {
     // Let go of LMB/RMB outside of the window
@@ -956,9 +961,11 @@ document.documentElement.addEventListener("mouseenter", (evt) => {
         game.preventNextRMB = false
     }
 })
-// document.addEventListener('keypress', (evt) => {
-//
-// })
+/*/
+document.addEventListener('keypress', (evt) => {
+
+})
+//*/
 document.addEventListener("contextmenu", (evt) => {
     // Disables right-click (context) menu
     evt.preventDefault()
@@ -1016,6 +1023,7 @@ window.onkeydown = ((evt) => {
             break
     }
 })
+
 
 
 

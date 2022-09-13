@@ -307,52 +307,48 @@ body {
                         background-color: #bbb;
                         font-family: sans-serif;
                     }
-                        .tile:active {
+                        .tile-safe, .tile.tile-undiscovered:active {
                             border-width: 1px;
                             border-color: gray;
                         }
+                            .tile-safe:not(.tile-undiscovered) > .marking, .tile.tile-undiscovered:active > .marking {
+                                /* similar styling to not having .tile-undiscovered class, so same styles there apply here also */
+                                width: calc(100% - ((2px * 2) + (var(--game-spacer-width) * 2)));
+                                height: calc(100% - ((2px * 2) + (var(--game-spacer-width) * 2)));
+                                margin: calc(((2px * 2) + (var(--game-spacer-width) * 2)) / 2);
+                            }
 
-                        .mine {
-                            
+                        .tile-color1 {
+                            color: royalblue;
                         }
-                        .tile-safe {
-                            border-width: 1px;
-                            border-color: gray;
+                        .tile-color2 {
+                            color: green;
                         }
-                            .tile-color1 {
-                                color: royalblue;
-                            }
-                            .tile-color2 {
-                                color: green;
-                            }
-                            .tile-color3 {
-                                color: red;
-                            }
-                            .tile-color4 {
-                                color: darkblue;
-                            }
-                            .tile-color5 {
-                                color: darkred;
-                            }
-                            .tile-color6 {
-                                color: teal;
-                            }
-                            .tile-color7 {
-                                color: black;
-                            }
-                            .tile-color8 {
-                                color: gray;
-                            }
+                        .tile-color3 {
+                            color: red;
+                        }
+                        .tile-color4 {
+                            color: darkblue;
+                        }
+                        .tile-color5 {
+                            color: darkred;
+                        }
+                        .tile-color6 {
+                            color: teal;
+                        }
+                        .tile-color7 {
+                            color: black;
+                        }
+                        .tile-color8 {
+                            color: gray;
+                        }
 
                         .tile-undiscovered {
                             border-width: var(--game-spacer-width);
                             border-style: solid;
                             border-color: #fff #888 #888 #fff;
+                            cursor: pointer;
                         }
-                            .tile-undiscovered:active {
-                                border-width: 1px;
-                                border-color: gray;
-                            }
                         
                         .inner-tile {
                             position: absolute;
