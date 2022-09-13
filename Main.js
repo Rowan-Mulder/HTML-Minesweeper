@@ -73,7 +73,6 @@ class Minesweeper {
                                 randomTile.firstChild.classList.add("mine")
                                 randomTile.firstChild.classList.add("marking")
                                 randomTile.classList.remove("tile-safe")
-                                randomTile.classList.add("mine")
                                 
                                 this.calcSurroundingMinesNumbers()
                                 this.uncoverCloseTiles(x, y)
