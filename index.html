@@ -54,7 +54,7 @@
                         <div class="menu">
                             <table>
                                 <tbody>
-                                    <tr onclick="restart()">
+                                    <tr onclick="restart()" title="Restarts the game">
                                         <td></td>
                                         <td><u>N</u>ew</td>
                                         <td>F2</td>
@@ -79,7 +79,7 @@
                                         <td><u>E</u>xpert</td>
                                         <td></td>
                                     </tr>
-                                    <tr onclick="customFieldOpen()">
+                                    <tr onclick="customFieldOpen()" title="Opens a menu to customize the minefield">
                                         <td id="difficulty-custom-check"></td>
                                         <td><u>C</u>ustom...</td>
                                         <td></td>
@@ -89,12 +89,12 @@
                                         <td colspan="3"><hr></td>
                                     </tr>
                                     
-                                    <tr onclick="toggleMarkings()">
+                                    <tr onclick="toggleMarkings()" title="Toggles the (?) mark">
                                         <td id="markings-check">✔</td>
                                         <td><u>M</u>arks (?)</td>
                                         <td></td>
                                     </tr>
-                                    <tr disabled>
+                                    <tr disabled title="Toggles colors">
                                         <td>✔</td>
                                         <td>Co<u>l</u>or</td>
                                         <td></td>
@@ -104,7 +104,7 @@
                                         <td colspan="3"><hr></td>
                                     </tr>
                                     
-                                    <tr disabled>
+                                    <tr disabled title="Opens your personal highscores">
                                         <td></td>
                                         <td>Best <u>T</u>imes...</td>
                                         <td></td>
@@ -114,7 +114,7 @@
                                         <td colspan="3"><hr></td>
                                     </tr>
                                     
-                                    <tr onclick="closeMenuDropdown()">
+                                    <tr onclick="closeMenuDropdown()" title="Closes the game menu">
                                         <td></td>
                                         <td>E<u>x</u>it</td>
                                         <td></td>
@@ -128,7 +128,7 @@
                         <div class="menu">
                             <table>
                                 <tbody>
-                                    <tr onclick="recreationBy()">
+                                    <tr onclick="recreationBy()" title="Opens a window with the info of the recreation of Minesweeper">
                                         <td></td>
                                         <td><u>R</u>ecreation by...</td>
                                         <td></td>
@@ -138,7 +138,7 @@
                                         <td colspan="3"><hr></td>
                                     </tr>
 
-                                    <tr onclick="aboutMinesweeper()">
+                                    <tr onclick="aboutMinesweeper()" title="Opens a window with the original Windows 95 Minesweeper game info">
                                         <td></td>
                                         <td><u>A</u>bout Minesweeper</td>
                                         <td></td>
@@ -150,8 +150,8 @@
                 </div>
                 <div id="minesweeper" class="border-white-black">
                     <div id="scoreboard" class="border-black-white">
-                        <div id="mines-left">000</div>
-                        <button id="restart-button" class="menu-button" onclick="restart()">
+                        <div id="mines-left" title="The number of remaining mines">000</div>
+                        <button id="restart-button" class="menu-button" onclick="restart()" title="Restarts the game">
                             <span id="smiley" class="menu-button-icon"></span>
                         </button>
                         <div id="game-time-counter">000</div>
