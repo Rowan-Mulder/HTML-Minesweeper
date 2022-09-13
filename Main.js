@@ -22,7 +22,7 @@ class Minesweeper {
     init() {
         this.placeMines()
         this.calcSurroundingMinesNumbers()
-        this.hideAllCells()
+        this.hideAllTiles()
     }
     
     placeMines() {
@@ -257,30 +257,30 @@ class Minesweeper {
         }
     }
     
-    hideCell(x, y) {
+    hideTile(x, y) {
         let tile = this.minefield.children[y].children[x]
         tile.firstChild.style.display = "none"
         tile.classList.add("tile-undiscovered")
     }
     
-    showCell(x, y) {
+    showTile(x, y) {
         let tile = this.minefield.children[y].children[x]
         tile.firstChild.style.display = "inline-block"
         tile.classList.remove("tile-undiscovered")
     }
     
-    hideAllCells() {
+    hideAllTiles() {
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
-                this.hideCell(x, y)
+                this.hideTile(x, y)
             }
         }
     }
     
-    showAllCells() {
+    showAllTiles() {
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
-                this.showCell(x, y)
+                this.showTile(x, y)
             }
         }
     }
@@ -292,7 +292,7 @@ class Minesweeper {
 
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
-                this.showCell(x, y)
+                this.showTile(x, y)
                 let tile = minefield.children[y].children[x]
 
                 // Replaces incorrectly flagged tiles with crosses
@@ -341,7 +341,9 @@ class Minesweeper {
         
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
-                this.showCell(x, y)
+                this.showTile(x, y)
+
+                //*/ Replaces unflagged mines with flags (Officially how it's implemented in w95, but could be a confusing summary when game has won)
                 let tile = minefield.children[y].children[x]
 
                 // TODO: Assumption firstChild is a mine. Change this.
@@ -368,6 +370,7 @@ class Minesweeper {
                         tile.append(marking)
                     }
                 }
+                //*/
             }
         }
     }
@@ -433,7 +436,7 @@ class Minesweeper {
         
         this.placeMines()
         this.calcSurroundingMinesNumbers()
-        this.hideAllCells()
+        this.hideAllTiles()
     }
     
     startTimer() {
@@ -482,7 +485,7 @@ class Minesweeper {
             return
         }
         
-        this.showCell(x, y)
+        this.showTile(x, y)
         
         if (this.minefield.children[y].children[x].firstChild.innerText !== "") {
             return
@@ -492,14 +495,14 @@ class Minesweeper {
         
         // Potential bug: It assumes firstChild is never a marking. Perhaps some browsers will deal with the element ordering differently.
         if ((y - 1) >= 0) {
-            this.showCell(x, y - 1) // UP
+            this.showTile(x, y - 1) // UP
             if (this.minefield.children[y - 1].children[x].firstChild.innerText === "") {
                 if (this.exploredTiles.indexOf(`x:${x},y:${y - 1}`) === -1) {
                     nextCrossSearches.push({x, y: y - 1})
                 }
             }
             if ((x - 1) >= 0) {
-                this.showCell(x - 1, y - 1) // UP-LEFT
+                this.showTile(x - 1, y - 1) // UP-LEFT
                 if (this.minefield.children[y - 1].children[x - 1].firstChild.innerText === "") {
                     if (this.exploredTiles.indexOf(`x:${x - 1},y:${y - 1}`) === -1) {
                         nextCrossSearches.push({x: x - 1, y: y - 1})
@@ -508,14 +511,14 @@ class Minesweeper {
             }
         }
         if ((y + 1) < this.gridSize.y) {
-            this.showCell(x, y + 1) // DOWN
+            this.showTile(x, y + 1) // DOWN
             if (this.minefield.children[y + 1].children[x].firstChild.innerText === "") {
                 if (this.exploredTiles.indexOf(`x:${x},y:${y + 1}`) === -1) {
                     nextCrossSearches.push({x, y: y + 1})
                 }
             }
             if ((x + 1) < this.gridSize.x) {
-                this.showCell(x + 1, y + 1) // DOWN-RIGHT
+                this.showTile(x + 1, y + 1) // DOWN-RIGHT
                 
                 if (this.minefield.children[y + 1].children[x + 1].firstChild.innerText === "") {
                     if (this.exploredTiles.indexOf(`x:${x + 1},y:${y + 1}`) === -1) {
@@ -525,14 +528,14 @@ class Minesweeper {
             }
         }
         if ((x - 1) >= 0) {
-            this.showCell(x - 1, y) // LEFT
+            this.showTile(x - 1, y) // LEFT
             if (this.minefield.children[y].children[x - 1].firstChild.innerText === "") {
                 if (this.exploredTiles.indexOf(`x:${x - 1},y:${y}`) === -1) {
                     nextCrossSearches.push({x: x - 1, y})
                 }
             }
             if ((y + 1) < this.gridSize.y) {
-                this.showCell(x - 1, y + 1) // DOWN-LEFT
+                this.showTile(x - 1, y + 1) // DOWN-LEFT
                 
                 if (this.minefield.children[y + 1].children[x - 1].firstChild.innerText === "") {
                     if (this.exploredTiles.indexOf(`x:${x - 1},y:${y + 1}`) === -1) {
@@ -542,14 +545,14 @@ class Minesweeper {
             }
         }
         if ((x + 1) < this.gridSize.x) {
-            this.showCell(x + 1, y) // RIGHT
+            this.showTile(x + 1, y) // RIGHT
             if (this.minefield.children[y].children[x + 1].firstChild.innerText === "") {
                 if (this.exploredTiles.indexOf(`x:${x + 1},y:${y}`) === -1) {
                     nextCrossSearches.push({x: x + 1, y})
                 }
             }
             if ((y - 1) >= 0) {
-                this.showCell(x + 1, y - 1) // UP-RIGHT
+                this.showTile(x + 1, y - 1) // UP-RIGHT
                 
                 if (this.minefield.children[y - 1].children[x + 1].firstChild.innerText === "") {
                     if (this.exploredTiles.indexOf(`x:${x + 1},y:${y - 1}`) === -1) {
