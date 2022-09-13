@@ -377,6 +377,7 @@ class Minesweeper {
         }
 
         minefield.children[y].children[x].style.backgroundColor = "red"
+        minefield.children[y].children[x].style.borderColor = "#F88 #800 #800 #F88"
     }
 
     gameWin() {
