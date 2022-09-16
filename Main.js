@@ -352,6 +352,7 @@ class Minesweeper {
         this.stopTimer()
         this.gameEnded = true
         smileyChange("defeat")
+        this.playSound("sfx03", 150)
 
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
@@ -908,6 +909,7 @@ let aboutMinesweeperMenu = document.getElementById("about-minesweeper-menu")
 let sounds = {
     "sfx01": new Audio("audio/sfx01.mp3"),
     "sfx02": new Audio("audio/sfx02.mp3"),
+    "sfx03": new Audio("audio/sfx03.mp3"),
 }
 Object.entries(sounds).forEach((sound) => {
     sound[1].load()
