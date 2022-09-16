@@ -9,6 +9,7 @@ class Minesweeper {
         this.preventNextLMB = false // Seems to be required for quick-clearing surroundings as RMB and LMB events are independently triggered
         this.preventNextRMB = false // Same story as preventNextLMB
         this.markingsToggled = true // Adds optional ? marking (default)
+        this.sfxLoop = null
 
         this.minefield = minefield
         this.gameTimeCounter = gameTimeCounter
@@ -314,8 +315,11 @@ class Minesweeper {
             }
         }
 
-        tile.firstChild.style.display = "inline-block"
-        tile.classList.remove("tile-undiscovered")
+        if (tile.classList.contains("tile-undiscovered")) {
+            tile.firstChild.style.display = "inline-block"
+            tile.classList.remove("tile-undiscovered")
+            this.tileDiscovered()
+        }
     }
     
     hideAllTiles() {
@@ -330,6 +334,16 @@ class Minesweeper {
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.showTile(x, y)
+            }
+        }
+    }
+
+    tileDiscovered() {
+        if (!this.gameEnded && uncoverSpeedMs > 0) {
+            if (this.sfxLoop === null) {
+                this.sfxLoop = setInterval(() => { // Prevents the audio from looping too fast
+                    this.playSound("sfx01")
+                }, Math.max(uncoverSpeedMs, 90)) // This prevents it from looping the audio on a single tile
             }
         }
     }
@@ -384,6 +398,7 @@ class Minesweeper {
         this.stopTimer()
         this.gameEnded = true
         smileyChange("won")
+        this.playSound("sfx02", 150)
 
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
@@ -502,7 +517,20 @@ class Minesweeper {
             this.timerRunning = false
         }
     }
-    
+
+    playSound(name, delayInMs = 0, volume = 0.1) {
+        let sound = sounds[name].cloneNode(true)
+        sound.volume = volume
+
+        if (delayInMs > 0) {
+            setTimeout(() => {
+                sound.play()
+            }, delayInMs)
+        } else {
+            sound.play()
+        }
+    }
+
     uncoverCloseTiles(x, y) {
         if (!this.timerRunning) {
             this.startTimer()
@@ -527,7 +555,7 @@ class Minesweeper {
         if (this.exploredTiles.indexOf(`x:${x},y:${y}`) !== -1 || this.gameEnded || gameId !== this.gameData.gameId) {
             return
         }
-        
+
         this.showTile(x, y)
         
         if (this.minefield.children[y].children[x].firstChild.innerText !== "") {
@@ -607,7 +635,7 @@ class Minesweeper {
         
         for (let tile of nextCrossSearches) {
             if (!this.isCloseTilesUncovered(tile.x, tile.y)) {
-                // Possible bug: if uncoverSpeedMs == 0, some tiles may not be uncovered
+                // FIXME: Possible bug: if uncoverSpeedMs == 0, some tiles may not be uncovered
                 if (uncoverSpeedMs > 0) {
                     setTimeout(() => {
                         clearTimeout(this.exploringTimer)
@@ -797,6 +825,9 @@ class Minesweeper {
     }
 
     endOfTurn() {
+        clearInterval(this.sfxLoop)
+        this.sfxLoop = null
+
         if (minefield.querySelectorAll(".mine").length === minefield.querySelectorAll(".tile-undiscovered").length) {
             // Prevents triggering twice if you're going world record pace
             if (!this.gameEnded) {
@@ -872,6 +903,15 @@ let inputHeight = document.getElementById("input-height")
 let inputMines = document.getElementById("input-mines")
 let recreationByMenu = document.getElementById("recreation-by-menu")
 let aboutMinesweeperMenu = document.getElementById("about-minesweeper-menu")
+
+// Sounds
+let sounds = {
+    "sfx01": new Audio("audio/sfx01.mp3"),
+    "sfx02": new Audio("audio/sfx02.mp3"),
+}
+Object.entries(sounds).forEach((sound) => {
+    sound[1].load()
+})
 
 // Settings
 let gridSize = { x: 10, y: 10 }
