@@ -453,21 +453,21 @@ class Minesweeper {
 
                 switch (options.difficulty) {
                     case "beginner":
-                        this.gridSize = {x: 10, y: 10}
+                        this.gridSize = {x: 15, y: 15}
                         this.mineChance = 0.1
                         inputWidth.value = 10
                         inputHeight.value = 10
                         inputMines.value = (10 * 10) * 0.1
                         break
                     case "intermediate":
-                        this.gridSize = {x: 20, y: 12}
+                        this.gridSize = {x: 30, y: 17}
                         this.mineChance = 0.15
                         inputWidth.value = 20
                         inputHeight.value = 12
                         inputMines.value = (20 * 12) * 0.15
                         break
                     case "expert":
-                        this.gridSize = {x: 30, y: 12}
+                        this.gridSize = {x: 45, y: 17}
                         this.mineChance = 0.25
                         inputWidth.value = 30
                         inputHeight.value = 12
@@ -916,7 +916,7 @@ Object.entries(sounds).forEach((sound) => {
 })
 
 // Settings
-let gridSize = { x: 10, y: 10 }
+let gridSize = { x: 15, y: 15 }
 let mineChance = 0.1
 let uncoverSpeedMs = 40
 
