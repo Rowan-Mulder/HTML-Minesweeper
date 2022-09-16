@@ -520,6 +520,17 @@ class Minesweeper {
     }
 
     playSound(name, delayInMs = 0, volume = 0.1) {
+        let foundSound = false
+        Object.entries(sounds).forEach((x) => {
+            if (x[0] === name) {
+                foundSound = true
+            }
+        })
+        if (!foundSound) {
+            console.error(`Sound ${name} couldn't be found`)
+            return
+        }
+
         let sound = sounds[name].cloneNode(true)
         sound.volume = volume
 
