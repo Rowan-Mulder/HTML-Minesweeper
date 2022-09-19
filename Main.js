@@ -59,22 +59,29 @@ class Minesweeper {
                             if (!this.firstClickDone) { // Moves first clicked mine to a different spot. It doesn't make the rest of the game fair though.
                                 let randomTile = this.getRandomTile(true)
 
-                                // TODO: (1/3) Assuming firstChild will always be a mine (among markings) feels wrong. Browsers could change behavior which could break this. This method isn't called that often, so a little less efficient code here for safety is acceptable.
-                                tile.firstChild.classList.remove("mine")
-                                tile.firstChild.classList.remove("marking")
+                                let mineTile = tile.querySelector(".mine")
+                                mineTile.classList.remove("mine")
+                                mineTile.classList.remove("marking")
+                                tile.classList.remove("tile-unsafe")
                                 tile.classList.add("tile-safe")
-                                
+
                                 if (randomTile === null) { // If it can't find any empty tiles after searching ten times the amount of current tiles, you're either really lucky or there aren't any empty tiles left.
                                     this.gameWin()
                                     return
                                 }
 
-                                // TODO: (2/3) Assuming firstChild will always be a mine (among markings) feels wrong. Browsers could change behavior which could break this. This method isn't called that often, so a little less efficient code here for safety is acceptable.
                                 this.clearSurroundingMinesNumber(Array.from(randomTile.parentElement.children).indexOf(randomTile), Array.from(randomTile.parentElement.parentElement.children).indexOf(randomTile.parentElement))
-                                randomTile.firstChild.classList.add("mine")
-                                randomTile.firstChild.classList.add("marking")
-                                randomTile.classList.remove("tile-safe")
-                                
+
+                                for (let innerTile of randomTile.children) {
+                                    if (!innerTile.classList.contains("marking")) {
+                                        innerTile.classList.add("mine")
+                                        innerTile.classList.add("marking")
+                                        randomTile.classList.remove("tile-safe")
+                                        randomTile.classList.add("tile-unsafe")
+                                        break
+                                    }
+                                }
+
                                 this.calcSurroundingMinesNumbers()
                                 this.uncoverCloseTiles(x, y)
                             } else {
@@ -339,11 +346,19 @@ class Minesweeper {
     }
 
     tileDiscovered() {
-        if (!this.gameEnded && uncoverSpeedMs > 0) {
+        if (this.gameEnded) {
+            return
+        }
+
+        if (uncoverSpeedMs > 0) {
             if (this.sfxLoop === null) {
                 this.sfxLoop = setInterval(() => { // Prevents the audio from looping too fast
                     this.playSound("sfx01")
                 }, Math.max(uncoverSpeedMs, 90)) // This prevents it from looping the audio on a single tile
+            }
+        } else {
+            if (this.endOfTurnFunctions.indexOf("playSound:sfx01") === -1) {
+                this.endOfTurnFunctions.push("playSound:sfx01")
             }
         }
     }
@@ -408,7 +423,6 @@ class Minesweeper {
                 /*/ Replaces unflagged mines with flags (Officially how it's implemented in w95, but could be a confusing summary when game has won)
                 let tile = minefield.children[y].children[x]
 
-                // TODO: Assumption firstChild is a mine. Change this.
                 if (tile.firstChild.classList.contains("mine")) {
                     let isMineHere = false
                     let isFlagHere = false
@@ -455,23 +469,23 @@ class Minesweeper {
                     case "beginner":
                         this.gridSize = {x: 15, y: 15}
                         this.mineChance = 0.1
-                        inputWidth.value = 10
-                        inputHeight.value = 10
-                        inputMines.value = (10 * 10) * 0.1
+                        inputWidth.value = this.gridSize.x
+                        inputHeight.value = this.gridSize.y
+                        inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
                         break
                     case "intermediate":
                         this.gridSize = {x: 30, y: 17}
                         this.mineChance = 0.15
-                        inputWidth.value = 20
-                        inputHeight.value = 12
-                        inputMines.value = (20 * 12) * 0.15
+                        inputWidth.value = this.gridSize.x
+                        inputHeight.value = this.gridSize.y
+                        inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
                         break
                     case "expert":
                         this.gridSize = {x: 45, y: 17}
                         this.mineChance = 0.25
-                        inputWidth.value = 30
-                        inputHeight.value = 12
-                        inputMines.value = (30 * 12) * 0.25
+                        inputWidth.value = this.gridSize.x
+                        inputHeight.value = this.gridSize.y
+                        inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
                         break
                 }
             }
@@ -680,7 +694,6 @@ class Minesweeper {
         let flagCount = 0
         let tempContainsFlag = false
 
-        // TODO: check if multidimensional loop tileContent conflicts between layers (I'm rusty)
         if ((y - 1) >= 0) {
             // UP
             Array.from(this.minefield.children[y - 1].children[x].children).forEach((tileContent) => {
@@ -994,9 +1007,9 @@ function customFieldOpen() {
     customFieldPopupMenu.classList.remove("hidden")
 }
 function customFieldOK(element) {
-    let width =  (!Number.isNaN(Number(inputWidth.value)))     ? Math.round(Math.max(Number(inputWidth.value ), 4)) : 4
-    let height = (!Number.isNaN(Number(inputHeight.value), 4)) ? Math.round(Math.max(Number(inputHeight.value), 4)) : 4
-    let mines =  (!Number.isNaN(Number(inputMines.value)))     ? Math.round(Math.min(Math.max(Number(inputMines.value), 1), (width * height) - 1)) : Math.round((width * height) * 0.1)
+    let width =  (!Number.isNaN(Number(inputWidth.value)))  ? Math.round(Math.max(Number(inputWidth.value ), 4)) : 4
+    let height = (!Number.isNaN(Number(inputHeight.value))) ? Math.round(Math.max(Number(inputHeight.value), 4)) : 4
+    let mines =  (!Number.isNaN(Number(inputMines.value)))  ? Math.round(Math.min(Math.max(Number(inputMines.value), 1), (width * height) - 1)) : Math.round((width * height) * 0.1)
     let chance = mines / (width * height)
 
     restart({difficulty: 'custom', gridSize: {x: width, y: height}, mineChance: chance})
@@ -1132,7 +1145,6 @@ FIXME
     ...
 
 TODO
-    Simplify all for-loops and forEach searches now classes can be directly approached each tile
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
     Settings menu for configurables
