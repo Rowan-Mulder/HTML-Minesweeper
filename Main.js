@@ -237,16 +237,19 @@ class Minesweeper {
                     }
                     
                     for (let tile of mineCheckArea) {
-                        // TODO: (3/3) Assuming firstChild will always be a mine (among markings) feels wrong. Browsers could change behavior which could break this. This method isn't called that often, so a little less efficient code here for safety is acceptable.
-                        if (tile.firstChild.classList.contains("mine")) {
+                        if (tile.querySelector(".mine")) {
                             mineCount++
                         }
                     }
                     
                     if (mineCount > 0) {
-                        // TODO: Similar to the assumption of firstChild being a mine, make sure to check all tile content (possibly by iterating over classList to check if any class starts with "tile-color")).
-                        this.minefield.children[y].children[x].firstChild.innerText = mineCount
-                        this.minefield.children[y].children[x].firstChild.classList.add(`tile-color${mineCount}`)
+                        for (let innerTile of this.minefield.children[y].children[x].children) {
+                            if (!innerTile.classList.contains("marking")) {
+                                innerTile.innerText = mineCount
+                                innerTile.classList.add(`tile-color${mineCount}`)
+                                break
+                            }
+                        }
                     }
                 }
             }
@@ -258,22 +261,16 @@ class Minesweeper {
             console.error(`Invalid index for clearing surrounding mines number: x:${x},y:${y}`)
         }
 
-        let tileContent = null
-
         for (let innerTile of this.minefield.children[y].children[x].querySelectorAll(".inner-tile")) {
             if (!innerTile.classList.contains("marking")) {
-                tileContent = innerTile
+                Array.from(innerTile.classList).forEach((tileContentClass) => {
+                    if (tileContentClass.startsWith("tile-color")) {
+                        innerTile.classList.remove(tileContentClass)
+                        innerTile.innerText = ""
+                    }
+                })
                 break
             }
-        }
-
-        if (tileContent !== null) {
-            Array.from(tileContent.classList).forEach((tileContentClass) => {
-                if (tileContentClass.startsWith("tile-color")) {
-                    tileContent.classList.remove(tileContentClass)
-                    tileContent.innerText = ""
-                }
-            })
         }
     }
     
