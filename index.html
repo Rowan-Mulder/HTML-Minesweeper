@@ -162,7 +162,7 @@
                     <div id="custom-field-popup-menu" class="window-wrapper window-popup hidden">
                         <div class="window-topbar">
                             <span class="menu-title">Custom Field</span>
-                            <button class="menu-button" onclick="closePopupWindow(this)">
+                            <button class="menu-button" onclick="closePopupWindow(this)" tabindex="105">
                                 <span class="window-close-icon menu-button-icon"></span>
                             </button>
                         </div>
@@ -171,13 +171,13 @@
                                 <tbody>
                                     <tr>
                                         <td><label for="input-height"><u>H</u>eight:</label></td>
-                                        <td><input id="input-height" type="text" value="15"/></td>
+                                        <td><input id="input-height" type="text" value="15" tabindex="100" onkeyup="customFieldInputOk(this)"/></td>
                                         <td rowspan="3" style="vertical-align: top">
                                             <div style="display: flex; flex-direction: column;">
-                                                <button class="menu-button wide-button" onclick="customFieldOK(this)">
+                                                <button class="menu-button wide-button" onclick="customFieldOK(this)" tabindex="103">
                                                     <span class="menu-button-icon">OK</span>
                                                 </button>
-                                                <button class="menu-button wide-button" onclick="closePopupWindow(this)">
+                                                <button class="menu-button wide-button" onclick="closePopupWindow(this)" tabindex="104">
                                                     <span class="menu-button-icon">Cancel</span>
                                                 </button>
                                             </div>
@@ -185,11 +185,11 @@
                                     </tr>
                                     <tr>
                                         <td><label for="input-width"><u>W</u>idth:</label></td>
-                                        <td><input id="input-width" type="text" value="15"/></td>
+                                        <td><input id="input-width" type="text" value="15" tabindex="101" onkeyup="customFieldInputOk(this)"/></td>
                                     </tr>
                                     <tr>
                                         <td><label for="input-mines"><u>M</u>ines:</label></td>
-                                        <td><input id="input-mines" type="text" value="20"/></td>
+                                        <td><input id="input-mines" type="text" value="20" tabindex="102" onkeyup="customFieldInputOk(this)"/></td>
                                     </tr>
                                 </tbody>
                             </table>

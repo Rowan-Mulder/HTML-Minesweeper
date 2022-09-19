@@ -1008,6 +1008,7 @@ function smileyChange(state) {
 function customFieldOpen() {
     closeMenuDropdown()
     customFieldPopupMenu.classList.remove("hidden")
+    inputHeight.select()
 }
 function customFieldOK(element) {
     let width =  (!Number.isNaN(Number(inputWidth.value)))  ? Math.round(Math.max(Number(inputWidth.value ), 4)) : 4
@@ -1021,6 +1022,11 @@ function customFieldOK(element) {
     inputWidth.value = width
     inputHeight.value = height
     inputMines.value = mines
+}
+function customFieldInputOk(element) {
+    if (this.event.key === "Enter") {
+        customFieldOK(element)
+    }
 }
 
 function closePopupWindow(element) {
