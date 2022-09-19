@@ -10,6 +10,7 @@ class Minesweeper {
         this.preventNextRMB = false // Same story as preventNextLMB
         this.markingsToggled = true // Adds optional ? marking (default)
         this.sfxLoop = null
+        this.endOfTurnFunctions = [] // Array of functionName:parameter functions to call after endOfTurn
 
         this.minefield = minefield
         this.gameTimeCounter = gameTimeCounter
@@ -847,6 +848,11 @@ class Minesweeper {
     }
 
     endOfTurn() {
+        for (let fn of this.endOfTurnFunctions) {
+            eval("this." + fn.split(":")[0])(fn.split(":")[1])
+        }
+        this.endOfTurnFunctions = []
+
         clearInterval(this.sfxLoop)
         this.sfxLoop = null
 
