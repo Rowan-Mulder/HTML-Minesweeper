@@ -240,7 +240,7 @@ body {
                             cursor: auto;
                         }
         #minesweeper {
-            position: relative; /* for config/info windows */
+            position: relative; /* for popup windows */
             width: max-content;
             padding: 10px;
             background-color: #bbb;
