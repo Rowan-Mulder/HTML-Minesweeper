@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Orbitron&display=swap');
 
 :root {
+    --contrast-color: #FF0000; /*#000000;*/
     --game-tile-size: 40px;
     --game-spacer-width: 3px;
     --w95-menu-spacer-width: 2px;
@@ -55,10 +56,16 @@ button:focus-visible:not(.w95-menu-button) {
     .window-popup table {
         margin: 3px;
     }
+    .window-popup b {
+        color: var(--contrast-color);
+    }
+    .window-popup label {
+        color: var(--contrast-color);
+    }
     .window-popup input {
         border-style: solid;
         border-width: var(--w95-menu-spacer-width);
-        border-color: #888 #fff #fff #888;
+        border-color: var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-bottomright);
         width: 60px;
     }
     .window-popup .wide-button {
@@ -67,7 +74,7 @@ button:focus-visible:not(.w95-menu-button) {
     .window-popup table td {
         padding-block: 8px;
     }
-    .window-popup tr td:nth-child(1) {
+    .window-popup tr:not(.divider) > td:nth-child(1) {
         padding-right: 25px;
     }
     #about-minesweeper-menu p, #recreation-by-menu p {
@@ -130,13 +137,16 @@ button:focus-visible:not(.w95-menu-button) {
             }
             .menu-button {
                 border-style: solid;
-                border-width: var(--w95-menu-spacer-width);
                 background: var(--w95-theme-bg-color);
+                color: var(--contrast-color);
                 padding: 0;
                 margin: 2px;
-                border-color: #fff #888 #888 #fff;
                 cursor: pointer;
             }
+                .menu-button:not(#restart-button) {
+                    border-width: var(--w95-menu-spacer-width);
+                    border-color: var(--w95-theme-border-color-topleft) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-bottomright) var(--w95-theme-border-color-topleft);
+                }
                 .menu-button:hover {
                     /*background-color: #aaa;*/
                 }
@@ -175,12 +185,20 @@ button:focus-visible:not(.w95-menu-button) {
                     .spread-span>span:nth-child(1) {
                         margin-right: 15px;
                     }
+    .window-popup input[type=color] {
+        padding: 0;
+        width: 100%;
+    }
+        .window-popup input[type=color]:focus {
+            border-color: #000;
+        }
 
 
 
 #game-container {
     display: flex;
     height: 100vh;
+    transition: filter 1s;
 }
     #minesweeper-wrapper {
         display: flex;
@@ -194,9 +212,10 @@ button:focus-visible:not(.w95-menu-button) {
         box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
     }
         #menus {
-            padding-block: var(--w95-menu-spacer-width);
             display: flex;
             flex-flow: row;
+            justify-content: space-between;
+            padding-block: var(--w95-menu-spacer-width);
             user-select: none;
         }
             .w95-menu-button {
@@ -261,6 +280,25 @@ button:focus-visible:not(.w95-menu-button) {
                             font-style: italic;
                             cursor: auto;
                         }
+            .settingsIcon {
+                background-image: url(images/cog.svg);
+                background-size: contain;
+                background-repeat: no-repeat;
+                aspect-ratio: 1;
+                margin: 5px;
+                animation-name: rotateClockwise;
+                animation-duration: 2s;
+                animation-iteration-count: infinite;
+                animation-play-state: paused;
+                animation-timing-function: linear;
+                height: 23px; /* Strange behavior on Chrome if 100% height left it to stretch to its wrapper */
+            }
+                .settingsIcon:hover {
+                    animation-play-state: running;
+                }
+                .settingsIcon.colorInvert {
+                    filter: contrast(0) brightness(2);
+                }
         #minesweeper {
             position: relative; /* for popup windows */
             width: max-content;
@@ -417,6 +455,10 @@ button:focus-visible:not(.w95-menu-button) {
 @keyframes animationFadeout {
     from {opacity: 100%}
     to   {opacity: 0}
+}
+@keyframes rotateClockwise {
+    from {transform: rotateZ(0deg)}
+    to   {transform: rotateZ(360deg)}
 }
 
 .animationBreathing {

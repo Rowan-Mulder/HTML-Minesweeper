@@ -938,6 +938,16 @@ let customFieldPopupMenu = document.getElementById("custom-field-popup-menu")
 let inputWidth = document.getElementById("input-width")
 let inputHeight = document.getElementById("input-height")
 let inputMines = document.getElementById("input-mines")
+let configurablesPopupMenu = document.getElementById("configurables-popup-menu")
+let inputGameTileSize = document.getElementById("input-game-tile-size")
+let inputGameSpacerWidth = document.getElementById("input-game-spacer-width")
+let inputW95MenuSpacerWidth = document.getElementById("input-w95-menu-spacer-width")
+let inputW95ThemeBgColor = document.getElementById("input-w95-theme-bg-color")
+let inputW95ThemeBorderColorTopleft = document.getElementById("input-w95-theme-border-color-topleft")
+let inputW95ThemeBorderColorBottomright = document.getElementById("input-w95-theme-border-color-bottomright")
+let inputW95ThemeButtonFgColor = document.getElementById("input-w95-theme-button-fg-color")
+let inputW95ThemeButtonActiveBgColor = document.getElementById("input-w95-theme-button-active-bg-color")
+let inputW95ThemeButtonActiveFgColor = document.getElementById("input-w95-theme-button-active-fg-color")
 
 // Sounds
 let sounds = {
@@ -1056,6 +1066,80 @@ function customFieldInputOk(element) {
     if (this.event.key === "Enter") {
         customFieldOK(element)
     }
+}
+
+function configurablesOpen() {
+    closeMenuDropdown()
+    configurablesPopupMenu.classList.remove("hidden")
+    setTimeout(() => {inputGameTileSize.select()}, 0)
+}
+function configurablesOK(element) {
+    // Input validation
+    let gameTileSize = (!Number.isNaN(Number(inputGameTileSize.value))) ? Math.round(Math.max(Number(inputGameTileSize.value), 5)) : 40
+    let gameSpacerWidth = (!Number.isNaN(Number(inputGameSpacerWidth.value))) ? Math.round(Math.max(Number(inputGameSpacerWidth.value), 0)) : 3
+    let w95MenuSpacerWidth = (!Number.isNaN(Number(inputW95MenuSpacerWidth.value))) ? Math.round(Math.max(Number(inputW95MenuSpacerWidth.value), 0)) : 2
+    let w95ThemeBgColor = inputW95ThemeBgColor.value
+    let w95ThemeBorderColorTopleft = new Color(inputW95ThemeBgColor.value).brighten(1.4)
+    let w95ThemeBorderColorBottomright = new Color(inputW95ThemeBgColor.value).brighten(0.35)
+    let w95ThemeButtonFgColor = inputW95ThemeButtonFgColor.value
+    let w95ThemeButtonActiveBgColor = inputW95ThemeButtonActiveBgColor.value
+    let w95ThemeButtonActiveFgColor = inputW95ThemeButtonActiveFgColor.value
+
+    closePopupWindow(element)
+
+    let docElStyle = document.documentElement.style
+    docElStyle.setProperty("--game-tile-size", `${gameTileSize}px`)
+    docElStyle.setProperty("--game-spacer-width", `${gameSpacerWidth}px`)
+    docElStyle.setProperty("--w95-menu-spacer-width", `${w95MenuSpacerWidth}px`)
+    docElStyle.setProperty("--w95-theme-bg-color", w95ThemeBgColor)
+    docElStyle.setProperty("--w95-theme-border-color-topleft", w95ThemeBorderColorTopleft)
+    docElStyle.setProperty("--w95-theme-border-color-bottomright", w95ThemeBorderColorBottomright)
+    docElStyle.setProperty("--w95-theme-button-fg-color", w95ThemeButtonFgColor)
+    docElStyle.setProperty("--w95-theme-button-active-bg-color", w95ThemeButtonActiveBgColor)
+    docElStyle.setProperty("--w95-theme-button-active-fg-color", w95ThemeButtonActiveFgColor)
+
+    // Replacing input with validated input
+    inputGameTileSize.value = gameTileSize
+    inputGameSpacerWidth.value = gameSpacerWidth
+    inputW95MenuSpacerWidth.value = w95MenuSpacerWidth
+
+    // Balancing contrast
+    let bgLuminosity = new Color(w95ThemeBgColor).toHSL().l
+    if (bgLuminosity < 50) {
+        docElStyle.setProperty("--contrast-color", "#FFFFFF")
+        document.querySelector(".settingsIcon").classList.add("colorInvert")
+    } else {
+        docElStyle.setProperty("--contrast-color", "#000000")
+        document.querySelector(".settingsIcon").classList.remove("colorInvert")
+    }
+}
+function configurablesInputOk(element) {
+    if (this.event.key === "Enter") {
+        configurablesOK(element)
+    }
+}
+function configurablesReset() {
+    inputGameTileSize.value = 40
+    inputGameSpacerWidth.value = 3
+    inputW95MenuSpacerWidth.value = 2
+    inputW95ThemeBgColor.value = "#C0C0C0"
+    inputW95ThemeButtonFgColor.value = "#030303"
+    inputW95ThemeButtonActiveBgColor.value = "#000080"
+    inputW95ThemeButtonActiveFgColor.value = "#FCFCFC"
+
+    let docElStyle = document.documentElement.style
+    docElStyle.setProperty("--game-tile-size", "40px")
+    docElStyle.setProperty("--game-spacer-width", "3px")
+    docElStyle.setProperty("--w95-menu-spacer-width", "2px")
+    docElStyle.setProperty("--w95-theme-bg-color", "#C0C0C0")
+    docElStyle.setProperty("--w95-theme-border-color-topleft", new Color(inputW95ThemeBgColor.value).brighten(1.4))
+    docElStyle.setProperty("--w95-theme-border-color-bottomright", new Color(inputW95ThemeBgColor.value).brighten(0.35))
+    docElStyle.setProperty("--w95-theme-button-fg-color", "#030303")
+    docElStyle.setProperty("--w95-theme-button-active-bg-color", "#000080")
+    docElStyle.setProperty("--w95-theme-button-active-fg-color", "#FCFCFC")
+    docElStyle.setProperty("--contrast-color", "#000000")
+
+    document.querySelector(".settingsIcon").classList.remove("colorInvert")
 }
 
 function closePopupWindow(element) {
@@ -1344,10 +1428,6 @@ class Color {
 TODO
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
-    Settings menu for configurables
-        Styling
-            Tilesize
-            W95 theme colors
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
