@@ -1163,3 +1163,4 @@ TODO
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
 */    Movable windows
+    Prevent double-tap zoom on mobile (it doesn't seem possible to seperate functionalities double-tap zoom and pinch-zooming, possibly due to this game deviating too far from normal web standards)
