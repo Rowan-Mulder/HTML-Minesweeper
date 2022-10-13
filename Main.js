@@ -1142,7 +1142,7 @@ window.onkeydown = ((evt) => {
                 toggleMarkings()
                 break
             case "l":
-                // Color, not implemented yet
+                toggleColor()
                 break
             case "s":
                 toggleSFX()
