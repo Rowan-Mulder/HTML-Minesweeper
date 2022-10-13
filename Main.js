@@ -1158,7 +1158,6 @@ TODO
         Styling
             Tilesize
             W95 theme colors
-    Movable windows
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
