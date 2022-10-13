@@ -49,105 +49,52 @@
                     </button>
                 </div>
                 <div id="menus">
-                    <button id="game-menu" class="w95-menu-button">
-                        <span><u>G</u>ame</span>
-                        <div class="menu">
-                            <table>
-                                <tbody>
-                                    <tr onclick="restart()" title="Restarts the game">
-                                        <td></td>
-                                        <td><u>N</u>ew</td>
-                                        <td>F2</td>
-                                    </tr>
-                                    
-                                    <tr class="divider">
-                                        <td colspan="3"><hr></td>
-                                    </tr>
-                                    
-                                    <tr onclick="restart({difficulty: 'beginner'})">
-                                        <td id="difficulty-beginner-check">✔</td>
-                                        <td><u>B</u>eginner</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr onclick="restart({difficulty: 'intermediate'})">
-                                        <td id="difficulty-intermediate-check"></td>
-                                        <td><u>I</u>ntermediate</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr onclick="restart({difficulty: 'expert'})">
-                                        <td id="difficulty-expert-check"></td>
-                                        <td><u>E</u>xpert</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr onclick="customFieldOpen()" title="Opens a menu to customize the minefield">
-                                        <td id="difficulty-custom-check"></td>
-                                        <td><u>C</u>ustom...</td>
-                                        <td></td>
-                                    </tr>
-                                    
-                                    <tr class="divider">
-                                        <td colspan="3"><hr></td>
-                                    </tr>
-                                    
-                                    <tr onclick="toggleMarkings()" title="Toggles the (?) mark">
-                                        <td id="markings-check">✔</td>
-                                        <td><u>M</u>arks (?)</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr disabled title="Toggles colors">
-                                        <td>✔</td>
-                                        <td>Co<u>l</u>or</td>
-                                        <td></td>
-                                    </tr>
-                                    
-                                    <tr class="divider">
-                                        <td colspan="3"><hr></td>
-                                    </tr>
-                                    
-                                    <tr disabled title="Opens your personal highscores">
-                                        <td></td>
-                                        <td>Best <u>T</u>imes...</td>
-                                        <td></td>
-                                    </tr>
-                                    
-                                    <tr class="divider">
-                                        <td colspan="3"><hr></td>
-                                    </tr>
-                                    
-                                    <tr onclick="closeMenuDropdown()" title="Closes the game menu">
-                                        <td></td>
-                                        <td>E<u>x</u>it</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </button>
-                    <button id="help-menu" class="w95-menu-button">
-                        <span><u>H</u>elp</span>
-                        <div class="menu">
-                            <table>
-                                <tbody>
-                                    <tr onclick="recreationBy()" title="Opens a window with the info of the recreation of Minesweeper">
-                                        <td></td>
-                                        <td><u>R</u>ecreation by...</td>
-                                        <td></td>
-                                    </tr>
                     <div>
+                        <button id="game-menu" class="w95-menu-button">
+                            <span><u>G</u>ame</span>
+                            <div class="menu">
+                                <table>
+                                    <tbody>
+                                        <tr onclick="restart()" title="Restarts the game">
+                                            <td></td>
+                                            <td><u>N</u>ew</td>
+                                            <td>F2</td>
+                                        </tr>
 
-                                    <tr class="divider">
-                                        <td colspan="3"><hr></td>
-                                    </tr>
+                                        <tr class="divider">
+                                            <td colspan="3"><hr></td>
+                                        </tr>
 
-                                    <tr onclick="aboutMinesweeper()" title="Opens a window with the original Windows 95 Minesweeper game info">
-                                        <td></td>
-                                        <td><u>A</u>bout Minesweeper</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </button>
+                                        <tr onclick="restart({difficulty: 'beginner'})" title="Changes to a preset game difficulty">
+                                            <td id="difficulty-beginner-check">✔</td>
+                                            <td><u>B</u>eginner</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr onclick="restart({difficulty: 'intermediate'})" title="Changes to a preset game difficulty">
+                                            <td id="difficulty-intermediate-check"></td>
+                                            <td><u>I</u>ntermediate</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr onclick="restart({difficulty: 'expert'})" title="Changes to a preset game difficulty">
+                                            <td id="difficulty-expert-check"></td>
+                                            <td><u>E</u>xpert</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr onclick="customFieldOpen()" title="Opens a menu to customize the game difficulty">
+                                            <td id="difficulty-custom-check"></td>
+                                            <td><u>C</u>ustom...</td>
+                                            <td></td>
+                                        </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="3"><hr></td>
+                                        </tr>
+
+                                        <tr onclick="toggleMarkings()" title="Toggles the (?) mark">
+                                            <td id="markings-check">✔</td>
+                                            <td><u>M</u>arks (?)</td>
+                                            <td></td>
+                                        </tr>
                                         <tr onclick="toggleColor()" title="Toggles color">
                                             <td id="color-check">✔</td>
                                             <td>Co<u>l</u>or</td>
@@ -158,6 +105,55 @@
                                             <td><u>S</u>ound</td>
                                             <td></td>
                                         </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="3"><hr></td>
+                                        </tr>
+
+                                        <tr disabled title="Opens your personal highscores">
+                                            <td></td>
+                                            <td>Best <u>T</u>imes...</td>
+                                            <td></td>
+                                        </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="3"><hr></td>
+                                        </tr>
+
+                                        <tr onclick="closeMenuDropdown()" title="Closes the game menu">
+                                            <td></td>
+                                            <td>E<u>x</u>it</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </button>
+                        <button id="help-menu" class="w95-menu-button">
+                            <span><u>H</u>elp</span>
+                            <div class="menu">
+                                <table>
+                                    <tbody>
+                                        <tr onclick="recreationBy()" title="Opens a window with the info of the recreation of Minesweeper">
+                                            <td></td>
+                                            <td><u>R</u>ecreation by...</td>
+                                            <td></td>
+                                        </tr>
+
+                                        <tr class="divider">
+                                            <td colspan="3"><hr></td>
+                                        </tr>
+
+                                        <tr onclick="aboutMinesweeper()" title="Opens a window with the original Windows 95 Minesweeper game info">
+                                            <td></td>
+                                            <td><u>A</u>bout Minesweeper</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </button>
+                    </div>
                     </div>
                 </div>
                 <div id="minesweeper" class="border-white-black">
