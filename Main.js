@@ -104,10 +104,10 @@ class Minesweeper {
                         this.quickClear(x, y)
                     }
                 })
-                tile.addEventListener("mouseup", (evt) => {
+                tile.addEventListener("contextmenu", (evt) => {
                     evt.preventDefault()
 
-                    if (evt.button === 2 && evt.buttons === 0) { // Right click
+                    if ((evt.button === 2 && evt.buttons) === 0 || evt.pointerType) { // Right click on PC or long-press on touch/pen devices
                         if (this.preventNextRMB) {
                             return
                         }
@@ -1161,4 +1161,4 @@ TODO
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
-*/
+*/    Movable windows
