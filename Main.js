@@ -1121,6 +1121,7 @@ window.onkeydown = ((evt) => {
                 // Best Times, not implemented yet
                 break
             case "x":
+            case "Escape":
                 closeMenuDropdown(gameMenu)
                 break
         }
@@ -1135,6 +1136,9 @@ window.onkeydown = ((evt) => {
             case "a":
                 aboutMinesweeper()
                 break
+            case "Escape":
+                closeMenuDropdown(helpMenu)
+                break
         }
     }
 
@@ -1144,6 +1148,16 @@ window.onkeydown = ((evt) => {
             restart()
             break
     }
+})
+
+// Adds event to all popup-windows to allow closing it when pressing the escape key while focused
+document.querySelectorAll(".window-popup").forEach((popupWindow) => {
+    popupWindow.setAttribute("tabindex", "-1") // Allows element to be focusable, required for key-events
+    popupWindow.addEventListener("keydown", (evt) => {
+        if (evt.key === "Escape") {
+            closePopupWindow(evt.target)
+        }
+    })
 })
 
 class Color {
