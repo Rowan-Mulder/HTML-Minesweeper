@@ -9,7 +9,7 @@ class Minesweeper {
         this.preventNextLMB = false // Seems to be required for quick-clearing surroundings as RMB and LMB events are independently triggered
         this.preventNextRMB = false // Same story as preventNextLMB
         this.markingsToggled = true // Adds optional ? marking (default)
-        this.sfxLoop = null
+        this.sfxLoop = null // The interval limiting sound effects being played too fast when uncovering large fields
         this.endOfTurnFunctions = [] // Array of functionName:parameter functions to call after endOfTurn
 
         this.minefield = minefield
@@ -659,7 +659,6 @@ class Minesweeper {
         
         for (let tile of nextCrossSearches) {
             if (!this.isCloseTilesUncovered(tile.x, tile.y)) {
-                // FIXME: Possible bug: if uncoverSpeedMs == 0, some tiles may not be uncovered
                 if (uncoverSpeedMs > 0) {
                     setTimeout(() => {
                         clearTimeout(this.exploringTimer)
@@ -1011,6 +1010,7 @@ function customFieldOpen() {
     setTimeout(() => {inputHeight.select()}, 0)
 }
 function customFieldOK(element) {
+    // Input validation
     let width =  (!Number.isNaN(Number(inputWidth.value)))  ? Math.round(Math.max(Number(inputWidth.value ), 4)) : 4
     let height = (!Number.isNaN(Number(inputHeight.value))) ? Math.round(Math.max(Number(inputHeight.value), 4)) : 4
     let mines =  (!Number.isNaN(Number(inputMines.value)))  ? Math.round(Math.min(Math.max(Number(inputMines.value), 1), (width * height) - 1)) : Math.round((width * height) * 0.1)
@@ -1019,6 +1019,7 @@ function customFieldOK(element) {
     restart({difficulty: 'custom', gridSize: {x: width, y: height}, mineChance: chance})
     closePopupWindow(element)
 
+    // Replacing input with validated input
     inputWidth.value = width
     inputHeight.value = height
     inputMines.value = mines
