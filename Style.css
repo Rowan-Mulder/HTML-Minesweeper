@@ -20,6 +20,13 @@ body {
     background-color: #ddd;
 }
 
+/* Removes outline on focus */
+button, input:focus-visible {
+    outline: none;
+}
+button:focus-visible:not(.w95-menu-button) {
+    filter: brightness(1.2);
+}
 
 .border-black-white {
     border-style: solid;
