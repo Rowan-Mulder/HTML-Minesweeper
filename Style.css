@@ -3,21 +3,20 @@
 :root {
     --game-tile-size: 40px;
     --game-spacer-width: 3px;
-
-    --w95-theme-bg-color: #b4c0dc;
-    --w95-theme-border-color-topleft: #cfd8e8;
-    --w95-theme-border-color-bottomright: #6280b5;
-    --w95-theme-button-fg-color: #030303;
-    --w95-theme-button-active-bg-color: #008080;
-    --w95-theme-button-active-fg-color: #fcfcfc;
-    --w95-theme-button-inactive-bg-color: #5878b0;
-    --w95-theme-button-inactive-fg-color: #000080;
     --w95-menu-spacer-width: 2px;
+    --w95-theme-bg-color: #c0c0c0;
+    --w95-theme-border-color-topleft: #FFFFFF;
+    --w95-theme-border-color-bottomright: #434343;
+    --w95-theme-button-fg-color: #030303;
+    --w95-theme-button-active-bg-color: #000080;
+    --w95-theme-button-active-fg-color: #FCFCFC;
+    --w95-theme-button-inactive-bg-color: #5878B0;
+    --w95-theme-button-inactive-fg-color: #000080;
 }
 
 body {
     margin: 0;
-    background-color: #ddd;
+    background-color: #DDD;
 }
 
 /* Removes outline on focus */
@@ -31,12 +30,12 @@ button:focus-visible:not(.w95-menu-button) {
 .border-black-white {
     border-style: solid;
     border-width: var(--game-spacer-width);
-    border-color: #888 #fff #fff #888;
+    border-color: #888 #FFF #FFF #888;
 }
 .border-white-black {
     border-style: solid;
     border-width: var(--game-spacer-width);
-    border-color: #fff #888 #888 #fff;
+    border-color: #FFF #888 #888 #FFF;
 }
 
 .desaturation {
@@ -130,7 +129,7 @@ button:focus-visible:not(.w95-menu-button) {
                     /*background-color: #aaa;*/
                 }
                 .menu-button:active {
-                    border-color: #888 #fff #fff #888;
+                    border-color: #888 #FFF #FFF #888;
                 }
                 .window-close-icon {
                     background: url(images/menuClose.svg);
@@ -254,7 +253,7 @@ button:focus-visible:not(.w95-menu-button) {
             position: relative; /* for popup windows */
             width: max-content;
             padding: 10px;
-            background-color: #bbb;
+            background-color: #BBB;
         }
             #scoreboard {
                 position: relative;
@@ -282,7 +281,7 @@ button:focus-visible:not(.w95-menu-button) {
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    background: #c0c0c0;
+                    background: #C0C0C0;
                     z-index: 1; /* 2 are (dropdown) menus and 3 are popup windows */
                     box-shadow: #000A var(--w95-menu-spacer-width) var(--w95-menu-spacer-width) var(--w95-menu-spacer-width);
                     cursor: pointer;
@@ -320,7 +319,7 @@ button:focus-visible:not(.w95-menu-button) {
                         position: relative;
                         width: var(--game-tile-size);
                         height: var(--game-tile-size);
-                        background-color: #bbb;
+                        background-color: #BBB;
                         font-family: sans-serif;
                     }
                         .tile-safe, .tile.tile-undiscovered:active {
@@ -362,7 +361,7 @@ button:focus-visible:not(.w95-menu-button) {
                         .tile-undiscovered {
                             border-width: var(--game-spacer-width);
                             border-style: solid;
-                            border-color: #fff #888 #888 #fff;
+                            border-color: #FFF #888 #888 #FFF;
                             cursor: pointer;
                         }
                         
