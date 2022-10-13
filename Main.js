@@ -925,6 +925,7 @@ class Minesweeper {
 // Elements
 let minesweeper = document.getElementById("minesweeper")
 let restartButton = document.getElementById("restart-button")
+let smiley = document.getElementById("smiley")
 let minefield = document.getElementById("minefield")
 let gameTimeCounter = document.getElementById("game-time-counter")
 let minesLeft = document.getElementById("mines-left")
