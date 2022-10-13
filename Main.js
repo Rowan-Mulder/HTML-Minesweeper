@@ -9,6 +9,7 @@ class Minesweeper {
         this.preventNextLMB = false // Seems to be required for quick-clearing surroundings as RMB and LMB events are independently triggered
         this.preventNextRMB = false // Same story as preventNextLMB
         this.markingsToggled = true // Adds optional ? marking (default)
+        this.colorToggled = true
         this.sfxToggled = true
         this.sfxLoop = null // The interval limiting sound effects being played too fast when uncovering large fields
         this.endOfTurnFunctions = [] // Array of functionName:parameter functions to call after endOfTurn
@@ -980,6 +981,19 @@ function toggleMarkings() {
         })
     }
 
+}
+
+function toggleColor() {
+    closeMenuDropdown()
+    game.colorToggled = !game.colorToggled
+    let colorCheck = document.getElementById("color-check")
+    colorCheck.innerText = (game.colorToggled) ? "✔" : ""
+
+    if (game.colorToggled) {
+        document.querySelector("#game-container").classList.remove("desaturation")
+    } else {
+        document.querySelector("#game-container").classList.add("desaturation")
+    }
 }
 
 function toggleSFX() {

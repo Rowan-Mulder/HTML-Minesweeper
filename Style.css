@@ -32,6 +32,10 @@ body {
     border-color: #fff #888 #888 #fff;
 }
 
+.desaturation {
+    filter: saturate(0) brightness(1.2) contrast(0.7)
+}
+
 .window-popup {
     position: absolute; /* relative to #minesweeper */
     z-index: 3; /* 1 is the smiley (reset button) and 2 are (dropdown) menus */
