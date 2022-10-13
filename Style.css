@@ -85,6 +85,18 @@ button:focus-visible:not(.w95-menu-button) {
         #about-minesweeper-menu hr, #recreation-by-menu hr {
             margin-top: 15px;
         }
+    /* Hides input number arrows */
+    .window-popup  input[type=number]::-webkit-outer-spin-button, .window-popup  input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none; /* Chrome, Safari, Edge, Opera */
+        margin: 0;
+    }
+    .window-popup  input[type=number] {
+        -moz-appearance: textfield; /* Firefox */
+    }
+
+
+
+
 
 .window-wrapper {
     border-style: solid;
