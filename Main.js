@@ -9,6 +9,7 @@ class Minesweeper {
         this.preventNextLMB = false // Seems to be required for quick-clearing surroundings as RMB and LMB events are independently triggered
         this.preventNextRMB = false // Same story as preventNextLMB
         this.markingsToggled = true // Adds optional ? marking (default)
+        this.sfxToggled = true
         this.sfxLoop = null // The interval limiting sound effects being played too fast when uncovering large fields
         this.endOfTurnFunctions = [] // Array of functionName:parameter functions to call after endOfTurn
 
@@ -532,6 +533,10 @@ class Minesweeper {
     }
 
     playSound(name, delayInMs = 0, volume = 0.1) {
+        if (!this.sfxToggled) {
+            return
+        }
+
         let foundSound = false
         Object.entries(sounds).forEach((x) => {
             if (x[0] === name) {
@@ -977,6 +982,13 @@ function toggleMarkings() {
 
 }
 
+function toggleSFX() {
+    closeMenuDropdown()
+    game.sfxToggled = !game.sfxToggled
+    let sfxCheck = document.getElementById("sfx-check")
+    sfxCheck.innerText = (game.sfxToggled) ? "✔" : ""
+}
+
 // Closes a specific dropdown when an element was provided from that dropdown menu. Otherwise it closes all dropdown menus.
 function closeMenuDropdown(element = null) {
     menus.querySelectorAll("button").forEach((x) => {
@@ -1116,6 +1128,9 @@ window.onkeydown = ((evt) => {
                 break
             case "l":
                 // Color, not implemented yet
+                break
+            case "s":
+                toggleSFX()
                 break
             case "t":
                 // Best Times, not implemented yet
