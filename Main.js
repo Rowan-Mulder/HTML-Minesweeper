@@ -931,12 +931,12 @@ let minesLeft = document.getElementById("mines-left")
 let menus = document.getElementById("menus")
 let gameMenu = document.getElementById("game-menu")
 let helpMenu = document.getElementById("help-menu")
+let recreationByMenu = document.getElementById("recreation-by-menu")
+let aboutMinesweeperMenu = document.getElementById("about-minesweeper-menu")
 let customFieldPopupMenu = document.getElementById("custom-field-popup-menu")
 let inputWidth = document.getElementById("input-width")
 let inputHeight = document.getElementById("input-height")
 let inputMines = document.getElementById("input-mines")
-let recreationByMenu = document.getElementById("recreation-by-menu")
-let aboutMinesweeperMenu = document.getElementById("about-minesweeper-menu")
 
 // Sounds
 let sounds = {
