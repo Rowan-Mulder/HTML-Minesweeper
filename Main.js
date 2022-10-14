@@ -1425,9 +1425,13 @@ class Color {
 
 
 /* Notes
+FIXME
+    Removed incorrectly placed flags don't correct the amount of expected mines left
+
 TODO
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
+        Minecount numbers 1-8
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
