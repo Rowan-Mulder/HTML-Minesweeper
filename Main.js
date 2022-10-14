@@ -1316,6 +1316,7 @@ class Color {
         return this.rgbToHSL(this.r, this.g, this.b)
     }
 
+    // https://css-tricks.com/converting-color-spaces-in-javascript/#aa-rgb-to-hsl
     rgbToHSL(r = 255, g = 255, b = 255) {
         // Make r, g, and b fractions of 1
         r /= 255;
@@ -1363,6 +1364,7 @@ class Color {
         return {h, s, l}
     }
 
+    // https://css-tricks.com/converting-color-spaces-in-javascript/#aa-hsl-to-rgb
     hslToRGB(h = 0, s = 0, l = 100) {
         h = Math.min(Math.max(0, h), 360)
         s = Math.min(Math.max(0, s), 100)
