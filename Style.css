@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Orbitron&display=swap');
 
 :root {
-    --contrast-color: #FF0000; /*#000000;*/
+    --contrast-color: #000000;
     --game-tile-size: 40px;
     --game-spacer-width: 3px;
     --w95-menu-spacer-width: 2px;
