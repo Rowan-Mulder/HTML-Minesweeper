@@ -49,6 +49,7 @@ button:focus-visible:not(.w95-menu-button) {
     top: 30px;
     left: 30px;
     user-select: none;
+    color: var(--contrast-color);
 }
     .hidden {
         display: none;
