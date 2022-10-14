@@ -154,9 +154,8 @@ button:focus-visible:not(.w95-menu-button) {
                     border-color: #888 #FFF #FFF #888;
                 }
                 .window-close-icon {
-                    background: url(images/menuClose.svg);
+                    background: url(images/menuClose.svg) no-repeat;
                     background-size: contain;
-                    background-repeat: no-repeat;
                 }
                 .menu-button-icon {
                     display: block;
