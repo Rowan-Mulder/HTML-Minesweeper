@@ -1400,20 +1400,23 @@ class Color {
     }
 
     brighten(amount = 1.0) {
-        let hslColor = this.rgbToHSL(this.r, this.g, this.b)
-        hslColor.l *= amount
-        let rgbColor = this.hslToRGB(hslColor.h, hslColor.s, hslColor.l)
-
-        this.r = rgbColor.r; this.g = rgbColor.g; this.b = rgbColor.b
-        this._color = {r: this.r, g: this.g, b: this.b}
-        return this.rgbToHex(this.r, this.g, this.b)
+        return this.hslAdjust('l', amount)
     }
 
     saturate(amount = 1.0) {
-        // TODO: saturation for 'inactive' colors
-        alert("in development")
+        return this.hslAdjust('s', amount)
+    }
 
-        this.g = 255; this.r = 255; this.b = 255
+    hslAdjust(char = 'h', amount = 1.0) {
+        if (['h','s','l'].indexOf(char) === -1) {
+            return
+        }
+
+        let hslColor = this.rgbToHSL(this.r, this.g, this.b)
+        eval(`hslColor.${char} *= amount`)
+        let rgbColor = this.hslToRGB(hslColor.h, hslColor.s, hslColor.l)
+
+        this.r = rgbColor.r; this.g = rgbColor.g; this.b = rgbColor.b
         this._color = {r: this.r, g: this.g, b: this.b}
         return this.rgbToHex(this.r, this.g, this.b)
     }
