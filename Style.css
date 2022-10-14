@@ -336,9 +336,8 @@ button:focus-visible:not(.w95-menu-button) {
                     cursor: pointer;
                 }
                     #smiley {
-                        background: url(images/smiley.svg);
                         background-size: contain;
-                        background-repeat: no-repeat;
+                        background: url(images/smiley.svg) no-repeat;
                         width: 30px;
                         height: 30px;
                     }
