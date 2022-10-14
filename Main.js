@@ -1430,6 +1430,10 @@ TODO
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
         Minecount numbers 1-8
+    Tweak custom minefield to accurately place input amount of mines
+        Random tile placement will prevent patterns but processing time will be bound to mine to tile ratio
+            To solve all problems, an algoritm needs to tweak the RNG for likelyness of placing a mine.
+                In theory, the only problem this may cause is near guaranteed mines on the last 1-2 tiles
 
 OPTIONAL
     Minigame based on time where you mark mines to clear. Mines gradually will be added but also removed on mark and wrong mark will end the game?
