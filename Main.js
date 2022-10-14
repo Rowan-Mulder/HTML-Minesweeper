@@ -162,6 +162,7 @@ class Minesweeper {
                 })
 
                 // Mine placement
+                // TODO: improve tile placement algorithm to ensure input amount of mines will be present.
                 if (Math.random() <= this.mineChance) {
                     let mineContainer = document.createElement("div")
                     mineContainer.classList.add("mine")
