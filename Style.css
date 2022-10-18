@@ -227,7 +227,7 @@ button:focus-visible:not(.w95-menu-button) {
                 color: var(--w95-theme-button-fg-color);
                 cursor: pointer;
             }
-                .w95-menu-button > span {
+                .w95-menu-button > span:not(.menu) {
                     pointer-events: none;
                 }
             .w95-menu-button:hover, .w95-menu-button:focus {
