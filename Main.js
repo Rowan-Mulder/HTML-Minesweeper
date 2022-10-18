@@ -1072,6 +1072,14 @@ function configurablesOpen() {
     configurablesPopupMenu.classList.remove("hidden")
     setTimeout(() => {inputGameTileSize.select()}, 0)
 }
+function configurablesInput() {
+    switch(this.event.key) {
+        case " ":
+        case "Enter":
+            configurablesOpen()
+            break;
+    }
+}
 function configurablesOK(element) {
     // Input validation
     let gameTileSize = (!Number.isNaN(Number(inputGameTileSize.value))) ? Math.round(Math.max(Number(inputGameTileSize.value), 5)) : 40
@@ -1156,7 +1164,7 @@ function aboutMinesweeper() {
 
 document.addEventListener("mousedown", (evt) => {
     // Closes menu dropdowns when clicking the dropdown button while it's already open
-    if (document.activeElement.closest("#menus") && evt.target.closest("#menus") && document.activeElement === evt.target) {
+    if (document.activeElement.closest("#menus") && !evt.target.closest(".settings-icon") && evt.target.closest("#menus") && document.activeElement === evt.target) {
         setTimeout(() => {
             document.getElementById(document.activeElement.id).blur() // The handle to evt.target and document.activeElement have limited interaction. Also the blur has to be stalled slightly. This is a strange bodgefix.
         }, 0)
