@@ -50,7 +50,7 @@
                 </div>
                 <div id="menus">
                     <div>
-                        <button id="game-menu" class="w95-menu-button">
+                        <button id="game-menu" class="w95-menu-button" tabindex="1">
                             <span><u>G</u>ame</span>
                             <span class="menu">
                                 <table>
@@ -129,7 +129,7 @@
                                 </table>
                             </span>
                         </button>
-                        <button id="help-menu" class="w95-menu-button">
+                        <button id="help-menu" class="w95-menu-button" tabindex="2">
                             <span><u>H</u>elp</span>
                             <span class="menu">
                                 <table>
@@ -154,7 +154,7 @@
                             </span>
                         </button>
                     </div>
-                    <div class="settingsIcon" onclick="configurablesOpen()" title="Opens the preferences window">
+                    <div class="settingsIcon" tabindex="3" onclick="configurablesOpen()" title="Opens the preferences window">
 
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                     <div id="custom-field-popup-menu" class="window-wrapper window-popup hidden">
                         <div class="window-topbar">
                             <span class="menu-title">Custom Field</span>
-                            <button class="menu-button" onclick="closePopupWindow(this)" tabindex="105">
+                            <button class="menu-button" onclick="closePopupWindow(this)" tabindex="12.0">
                                 <span class="window-close-icon menu-button-icon"></span>
                             </button>
                         </div>
@@ -181,13 +181,13 @@
                                 <tbody>
                                     <tr>
                                         <td><label for="input-height"><u>H</u>eight:</label></td>
-                                        <td><input id="input-height" type="number" value="15" tabindex="100" onkeyup="customFieldInputOk(this)"/></td>
+                                        <td><input id="input-height" type="number" value="15" tabindex="10.0" onkeyup="customFieldInputOk(this)"/></td>
                                         <td rowspan="3" style="vertical-align: top">
                                             <div style="display: flex; flex-direction: column;">
-                                                <button class="menu-button wide-button" onclick="customFieldOK(this)" tabindex="103">
+                                                <button class="menu-button wide-button" onclick="customFieldOK(this)" tabindex="11.0">
                                                     <span class="menu-button-icon">OK</span>
                                                 </button>
-                                                <button class="menu-button wide-button" onclick="closePopupWindow(this)" tabindex="104">
+                                                <button class="menu-button wide-button" onclick="closePopupWindow(this)" tabindex="11.1">
                                                     <span class="menu-button-icon">Cancel</span>
                                                 </button>
                                             </div>
@@ -195,11 +195,11 @@
                                     </tr>
                                     <tr>
                                         <td><label for="input-width"><u>W</u>idth:</label></td>
-                                        <td><input id="input-width" type="number" value="15" tabindex="101" onkeyup="customFieldInputOk(this)"/></td>
+                                        <td><input id="input-width" type="number" value="15" tabindex="10.1" onkeyup="customFieldInputOk(this)"/></td>
                                     </tr>
                                     <tr>
                                         <td><label for="input-mines"><u>M</u>ines:</label></td>
-                                        <td><input id="input-mines" type="number" value="20" tabindex="102" onkeyup="customFieldInputOk(this)"/></td>
+                                        <td><input id="input-mines" type="number" value="20" tabindex="10.2" onkeyup="customFieldInputOk(this)"/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -288,7 +288,7 @@
                     <div id="configurables-popup-menu" class="window-wrapper window-popup hidden">
                         <div class="window-topbar">
                             <span class="menu-title">Preferences</span>
-                            <button class="menu-button" onclick="closePopupWindow(this)" tabindex="304">
+                            <button class="menu-button" onclick="closePopupWindow(this)" tabindex="22.0">
                                 <span class="window-close-icon menu-button-icon"></span>
                             </button>
                         </div>
@@ -302,12 +302,12 @@
                                     <td></td>
                                     <td rowspan="3" style="vertical-align: top">
                                         <div style="display: flex; flex-direction: column;">
-                                            <button class="menu-button wide-button" onclick="configurablesOK(this)" tabindex="301">
+                                            <button class="menu-button wide-button" onclick="configurablesOK(this)" tabindex="21.0">
                                                 <span class="menu-button-icon">OK</span>
-                                            </button><button class="menu-button wide-button" onclick="configurablesReset()" tabindex="302">
+                                            </button><button class="menu-button wide-button" onclick="configurablesReset()" tabindex="21.1">
                                             <span class="menu-button-icon">Reset settings</span>
                                         </button>
-                                            <button class="menu-button wide-button" onclick="closePopupWindow(this)" tabindex="303">
+                                            <button class="menu-button wide-button" onclick="closePopupWindow(this)" tabindex="21.2">
                                                 <span class="menu-button-icon">Cancel</span>
                                             </button>
                                         </div>
@@ -315,12 +315,12 @@
                                 </tr>
                                     <tr>
                                         <td><label for="input-game-tile-size">Tile size:</label></td>
-                                        <td><input id="input-game-tile-size" type="number" value="40" tabindex="200" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td><input id="input-game-tile-size" type="number" value="40" tabindex="20.0" onkeyup="configurablesInputOk(this)"/></td>
 
                                     </tr>
                                     <tr>
                                         <td><label for="input-game-spacer-width">Spacer width:</label></td>
-                                        <td><input id="input-game-spacer-width" type="number" value="3" tabindex="201" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td><input id="input-game-spacer-width" type="number" value="3" tabindex="20.1" onkeyup="configurablesInputOk(this)"/></td>
                                     </tr>
                                     <tr class="divider">
                                         <td colspan="2"><hr></td>
@@ -332,7 +332,7 @@
                                     </tr>
                                     <tr>
                                         <td><label for="input-w95-menu-spacer-width">Spacer width:</label></td>
-                                        <td><input id="input-w95-menu-spacer-width" type="number" value="2" tabindex="202" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td><input id="input-w95-menu-spacer-width" type="number" value="2" tabindex="20.2" onkeyup="configurablesInputOk(this)"/></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -341,11 +341,19 @@
                                     </tr>
                                     <tr>
                                         <td><label for="input-w95-theme-bg-color">Background:</label></td>
-                                        <td><input id="input-w95-theme-bg-color" type="color" value="#C0C0C0" tabindex="203" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td>
+                                            <div class="color-input-container">
+                                                <input id="input-w95-theme-bg-color" type="color" value="#C0C0C0" tabindex="20.3" onkeyup="configurablesInputOk(this)"/>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><label for="input-w95-theme-button-fg-color">Foreground:</label></td>
-                                        <td><input id="input-w95-theme-button-fg-color" type="color" value="#030303" tabindex="206" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td>
+                                            <div class="color-input-container">
+                                                <input id="input-w95-theme-button-fg-color" type="color" value="#030303" tabindex="20.4" onkeyup="configurablesInputOk(this)"/>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -354,19 +362,36 @@
                                     </tr>
                                     <tr>
                                         <td><label for="input-w95-theme-button-active-bg-color">Background<!-- (active)-->:</label></td>
-                                        <td><input id="input-w95-theme-button-active-bg-color" type="color" value="#000080" tabindex="207" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td>
+                                            <div class="color-input-container">
+                                                <input id="input-w95-theme-button-active-bg-color" type="color" value="#000080" tabindex="20.5" onkeyup="configurablesInputOk(this)"/>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><label for="input-w95-theme-button-active-fg-color">Foreground<!-- (active)-->:</label></td>
-                                        <td><input id="input-w95-theme-button-active-fg-color" type="color" value="#FCFCFC" tabindex="208" onkeyup="configurablesInputOk(this)"/></td>
+                                        <td>
+                                            <div class="color-input-container">
+                                                <input id="input-w95-theme-button-active-fg-color" type="color" value="#FCFCFC" tabindex="20.6" onkeyup="configurablesInputOk(this)"/>
+                                            </div>
+                                        </td>
                                     </tr>
+<!-- May be auto generated -->
 <!--                                    <tr>-->
 <!--                                        <td><label for="input-w95-theme-button-inactive-bg-color">Background (inactive):</label></td>-->
-<!--                                        <td><input id="input-w95-theme-button-inactive-bg-color" type="color" value="#5878B0" tabindex="209" onkeyup="configurablesInputOk(this)"/></td>-->
+<!--                                        <td>-->
+<!--                                            <div class="color-input-container">-->
+<!--                                                <input id="input-w95-theme-button-inactive-bg-color" type="color" value="#5878B0" tabindex="20.7" onkeyup="configurablesInputOk(this)"/>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
 <!--                                    </tr>-->
 <!--                                    <tr>-->
 <!--                                        <td><label for="input-w95-theme-button-inactive-fg-color">Foreground (inactive):</label></td>-->
-<!--                                        <td><input id="input-w95-theme-button-inactive-fg-color" type="color" value="#000080" tabindex="210" onkeyup="configurablesInputOk(this)"/></td>-->
+<!--                                        <td>-->
+<!--                                            <div class="color-input-container">-->
+<!--                                                <input id="input-w95-theme-button-inactive-fg-color" type="color" value="#000080" tabindex="20.8" onkeyup="configurablesInputOk(this)"/>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
 <!--                                    </tr>-->
                                 </tbody>
                             </table>

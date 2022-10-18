@@ -72,7 +72,7 @@ button:focus-visible:not(.w95-menu-button) {
     .window-popup .wide-button {
         margin-top: 0
     }
-    .window-popup table td {
+    .window-popup table td:not(.color-input-container) {
         padding-block: 8px;
     }
     .window-popup tr:not(.divider) > td:nth-child(1) {
@@ -185,12 +185,24 @@ button:focus-visible:not(.w95-menu-button) {
                     .spread-span>span:nth-child(1) {
                         margin-right: 15px;
                     }
-    .window-popup input[type=color] {
-        padding: 0;
-        width: 100%;
+    .color-input-container {
+        overflow: hidden;
+        height: 22px;
+        border: 1px solid gray;
+        /*background: radial-gradient(circle, rgb(255, 255, 255) 25%, rgb(0, 0, 0) 30%);*/
+        background: repeating-linear-gradient(45deg, black 0%, black 9.99%, white 10%, white 20%);
     }
-        .window-popup input[type=color]:focus {
-            border-color: #000;
+        .color-input-container input[type=color] {
+            padding: 0;
+            border: none;
+            width: calc(100% + 6px);
+            height: calc(100% + 10px);
+            margin-inline: -3px;
+            margin-block: -5px;
+            position: relative;
+        }
+        .color-input-container>input[type=color]:focus {
+            opacity: 0.8;
         }
 
 
