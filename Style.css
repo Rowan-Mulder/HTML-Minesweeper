@@ -292,7 +292,7 @@ button:focus-visible:not(.w95-menu-button) {
                             font-style: italic;
                             cursor: auto;
                         }
-            .settingsIcon {
+            .settings-icon {
                 background-image: url(images/cog.svg);
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -305,10 +305,10 @@ button:focus-visible:not(.w95-menu-button) {
                 animation-timing-function: linear;
                 height: 23px; /* Strange behavior on Chrome if 100% height left it to stretch to its wrapper */
             }
-                .settingsIcon:hover {
+                .settings-icon:hover {
                     animation-play-state: running;
                 }
-                .settingsIcon.colorInvert {
+                .settings-icon.color-invert {
                     filter: contrast(0) brightness(2);
                 }
         #minesweeper {

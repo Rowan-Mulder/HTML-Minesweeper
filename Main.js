@@ -1106,10 +1106,10 @@ function configurablesOK(element) {
     let bgLuminosity = new Color(w95ThemeBgColor).toHSL().l
     if (bgLuminosity < 50) {
         docElStyle.setProperty("--contrast-color", "#FFFFFF")
-        document.querySelector(".settingsIcon").classList.add("colorInvert")
+        document.querySelector(".settings-icon").classList.add("color-invert")
     } else {
         docElStyle.setProperty("--contrast-color", "#000000")
-        document.querySelector(".settingsIcon").classList.remove("colorInvert")
+        document.querySelector(".settings-icon").classList.remove("color-invert")
     }
 }
 function configurablesInputOk(element) {
@@ -1138,7 +1138,7 @@ function configurablesReset() {
     docElStyle.setProperty("--w95-theme-button-active-fg-color", "#FCFCFC")
     docElStyle.setProperty("--contrast-color", "#000000")
 
-    document.querySelector(".settingsIcon").classList.remove("colorInvert")
+    document.querySelector(".settings-icon").classList.remove("color-invert")
 }
 
 function closePopupWindow(element) {
