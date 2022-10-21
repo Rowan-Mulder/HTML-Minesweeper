@@ -1,5 +1,45 @@
 import Color from './Color.js'
 
+// region Registering event listeners
+// Alternative method of adding event listeners required because of scopes in ES6 modules
+let htmlEvents = [
+    { selector: '.click-about-minesweeper',      evtType: 'click', functionCall: aboutMinesweeper,     functionParams: [] },
+    { selector: '.click-close-menu-dropdown',    evtType: 'click', functionCall: closeMenuDropdown,    functionParams: [] },
+    { selector: '.click-close-popup-window',     evtType: 'click', functionCall: closePopupWindow,     functionParams: ['this'] },
+    { selector: '.click-configurables-ok',       evtType: 'click', functionCall: configurablesOK,      functionParams: ['this'] },
+    { selector: '.click-configurables-open',     evtType: 'click', functionCall: configurablesOpen,    functionParams: [] },
+    { selector: '.click-configurables-reset',    evtType: 'click', functionCall: configurablesReset,   functionParams: [] },
+    { selector: '.click-custom-field-ok',        evtType: 'click', functionCall: customFieldOK,        functionParams: ['this'] },
+    { selector: '.click-custom-field-open',      evtType: 'click', functionCall: customFieldOpen,      functionParams: [] },
+    { selector: '.click-recreation-by',          evtType: 'click', functionCall: recreationBy,         functionParams: [] },
+    { selector: '.click-restart',                evtType: 'click', functionCall: restart,              functionParams: [] },
+    { selector: '.click-restart-beginner',       evtType: 'click', functionCall: restart,              functionParams: [{difficulty: 'beginner'}] },
+    { selector: '.click-restart-intermediate',   evtType: 'click', functionCall: restart,              functionParams: [{difficulty: 'intermediate'}] },
+    { selector: '.click-restart-expert',         evtType: 'click', functionCall: restart,              functionParams: [{difficulty: 'expert'}] },
+    { selector: '.click-toggle-color',           evtType: 'click', functionCall: toggleColor,          functionParams: [] },
+    { selector: '.click-toggle-markings',        evtType: 'click', functionCall: toggleMarkings,       functionParams: [] },
+    { selector: '.click-toggle-sfx',             evtType: 'click', functionCall: toggleSFX,            functionParams: [] },
+
+    { selector: '.keyup-configurables-input',    evtType: 'keyup', functionCall: configurablesInput,   functionParams: [] },
+    { selector: '.keyup-configurables-input-ok', evtType: 'keyup', functionCall: configurablesInputOk, functionParams: ['this'] },
+    { selector: '.keyup-custom-field-input-ok',  evtType: 'keyup', functionCall: customFieldInputOk,   functionParams: ['this'] },
+]
+
+for (let htmlEvt of htmlEvents) {
+    addHtmlEvent(htmlEvt.selector, htmlEvt.evtType, htmlEvt.functionCall, htmlEvt.functionParams)
+}
+
+function addHtmlEvent(selector, evtType, functionCall, functionParams) {
+    for (let evtClass of document.querySelectorAll(selector)) {
+        if (functionParams[0] === 'this') {
+            evtClass.addEventListener(evtType, () => {functionCall(evtClass, event)})
+        } else {
+            evtClass.addEventListener(evtType, () => {functionCall(...functionParams)})
+        }
+    }
+}
+// endregion
+
 class Minesweeper {
     constructor(minefield, gameTimeCounter, minesLeft, gridSize, mineChance) {
         this.gameData = {gameId: 1}
@@ -981,13 +1021,13 @@ function toggleMarkings() {
     markingsCheck.innerText = (game.markingsToggled) ? "✔" : ""
 
     if (!game.markingsToggled) { // Hides all earlier placed ? markings
-        this.minefield.querySelectorAll(".marking").forEach((marking) => {
+        game.minefield.querySelectorAll(".marking").forEach((marking) => {
             if (marking.classList.contains("markingQuestionmark")) {
                 marking.classList.add("markingQuestionmarkHidden")
             }
         })
     } else { // Shows all earlier hidden ? markings
-        this.minefield.querySelectorAll(".marking").forEach((marking) => {
+        game.minefield.querySelectorAll(".marking").forEach((marking) => {
             if (marking.classList.contains("markingQuestionmarkHidden")) {
                 marking.classList.remove("markingQuestionmarkHidden")
             }
@@ -1063,8 +1103,8 @@ function customFieldOK(element) {
     inputHeight.value = height
     inputMines.value = mines
 }
-function customFieldInputOk(element) {
-    if (this.event.key === "Enter") {
+function customFieldInputOk(element, event) {
+    if (event.key === "Enter") {
         customFieldOK(element)
     }
 }
@@ -1075,7 +1115,7 @@ function configurablesOpen() {
     setTimeout(() => {inputGameTileSize.select()}, 0)
 }
 function configurablesInput() {
-    switch(this.event.key) {
+    switch(event.key) {
         case " ":
         case "Enter":
             configurablesOpen()
@@ -1122,8 +1162,8 @@ function configurablesOK(element) {
         document.querySelector(".settings-icon").classList.remove("color-invert")
     }
 }
-function configurablesInputOk(element) {
-    if (this.event.key === "Enter") {
+function configurablesInputOk(element, event) {
+    if (event.key === "Enter") {
         configurablesOK(element)
     }
 }
