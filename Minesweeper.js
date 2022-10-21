@@ -1,5 +1,5 @@
 class Minesweeper {
-    constructor(minefield, gameTimeCounter, minesLeft, gridSize, mineChance, uncoverSpeedMs, sounds) {
+    constructor(minefield, gameTimeCounter, minesLeft, gridSize, mineChance, uncoverSpeedMs, sounds, smileyChange, inputs) {
         this.gameData = {gameId: 1}
         this.gameEnded = false
         this.timerRunning = false
@@ -21,6 +21,8 @@ class Minesweeper {
         this.mineChance = mineChance
         this.uncoverSpeedMs = uncoverSpeedMs
         this.sounds = sounds
+        this.smileyChange = smileyChange
+        this.inputs = inputs
 
         this.init()
     }
@@ -46,7 +48,7 @@ class Minesweeper {
                     }
 
                     if (!this.gameEnded) {
-                        let tile = minefield.children[y].children[x]
+                        let tile = this.minefield.children[y].children[x]
                         let containsFlag = false
                         let containsMine = false
                         Array.from(tile.children).forEach((x) => {
@@ -190,9 +192,9 @@ class Minesweeper {
         let tilesToCheck = (this.gridSize.y * this.gridSize.x) * 10 // Ten times the amount of current tiles (for those really difficult levels).
         let i = 0
         for (
-            let randomTile = minefield.children[Math.floor(Math.random() * this.gridSize.y)].children[Math.floor(Math.random() * this.gridSize.x)];
+            let randomTile = this.minefield.children[Math.floor(Math.random() * this.gridSize.y)].children[Math.floor(Math.random() * this.gridSize.x)];
             i < tilesToCheck;
-            randomTile = minefield.children[Math.floor(Math.random() * this.gridSize.y)].children[Math.floor(Math.random() * this.gridSize.x)]
+            randomTile = this.minefield.children[Math.floor(Math.random() * this.gridSize.y)].children[Math.floor(Math.random() * this.gridSize.x)]
         ) {
             let containsMine = false
             Array.from(randomTile.children).forEach((x) => {
@@ -298,7 +300,7 @@ class Minesweeper {
             }
         } else {
             if (tile.querySelector(".markingQuestionmark")) {
-                if (game.gameEnded) {
+                if (this.gameEnded) {
                     if (tile.querySelector(".markingQuestionmark").classList.contains("animationFadeout")) {
                         tile.querySelector(".markingQuestionmark").remove()
                     } else {
@@ -311,7 +313,7 @@ class Minesweeper {
                 }
             }
             if (tile.querySelector(".markingFlag")) {
-                if (game.gameEnded) {
+                if (this.gameEnded) {
                     if (tile.querySelector(".markingFlag").classList.contains("animationFadeout")) {
                         tile.querySelector(".markingFlag").remove()
                     } else {
@@ -369,13 +371,13 @@ class Minesweeper {
     gameOver(x, y) {
         this.stopTimer()
         this.gameEnded = true
-        smileyChange("defeat")
+        this.smileyChange("defeat")
         this.playSound("sfx03", 150)
 
         for (let y = 0; y < this.gridSize.y; y++) {
             for (let x = 0; x < this.gridSize.x; x++) {
                 this.showTile(x, y)
-                let tile = minefield.children[y].children[x]
+                let tile = this.minefield.children[y].children[x]
 
                 // Replaces incorrectly flagged tiles with crosses
                 if (tile.children.length > 1) {
@@ -409,14 +411,14 @@ class Minesweeper {
             }
         }
 
-        minefield.children[y].children[x].style.backgroundColor = "red"
-        minefield.children[y].children[x].style.borderColor = "#F88 #800 #800 #F88"
+        this.minefield.children[y].children[x].style.backgroundColor = "red"
+        this.minefield.children[y].children[x].style.borderColor = "#F88 #800 #800 #F88"
     }
 
     gameWin() {
         this.stopTimer()
         this.gameEnded = true
-        smileyChange("won")
+        this.smileyChange("won")
         this.minesLeft.innerText = "000"
         this.playSound("sfx02", 150)
 
@@ -473,23 +475,23 @@ class Minesweeper {
                     case "beginner":
                         this.gridSize = {x: 15, y: 15}
                         this.mineChance = 0.1
-                        inputWidth.value = this.gridSize.x
-                        inputHeight.value = this.gridSize.y
-                        inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
+                        this.inputs.inputWidth.value = this.gridSize.x
+                        this.inputs.inputHeight.value = this.gridSize.y
+                        this.inputs.inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
                         break
                     case "intermediate":
                         this.gridSize = {x: 30, y: 17}
                         this.mineChance = 0.15
-                        inputWidth.value = this.gridSize.x
-                        inputHeight.value = this.gridSize.y
-                        inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
+                        this.inputs.inputWidth.value = this.gridSize.x
+                        this.inputs.inputHeight.value = this.gridSize.y
+                        this.inputs.inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
                         break
                     case "expert":
                         this.gridSize = {x: 45, y: 17}
                         this.mineChance = 0.25
-                        inputWidth.value = this.gridSize.x
-                        inputHeight.value = this.gridSize.y
-                        inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
+                        this.inputs.inputWidth.value = this.gridSize.x
+                        this.inputs.inputHeight.value = this.gridSize.y
+                        this.inputs.inputMines.value = Math.round((this.gridSize.x * this.gridSize.y) * this.mineChance)
                         break
                 }
             }
@@ -509,7 +511,7 @@ class Minesweeper {
         this.minefield.innerHTML = ""
         this.gameTimeCounter.innerText = "000"
         this.minesLeft.innerText = "000"
-        smileyChange("regular")
+        this.smileyChange("regular")
 
         this.placeMines()
         this.calcSurroundingMinesNumbers()
@@ -851,7 +853,7 @@ class Minesweeper {
                 }
             }
             if (mineDetonated) {
-                game.gameOver(mineDetonated.x, mineDetonated.y)
+                this.gameOver(mineDetonated.x, mineDetonated.y)
             }
         }
     }
@@ -865,7 +867,7 @@ class Minesweeper {
         clearInterval(this.sfxLoop)
         this.sfxLoop = null
 
-        if (minefield.querySelectorAll(".mine").length === minefield.querySelectorAll(".tile-undiscovered").length) {
+        if (this.minefield.querySelectorAll(".mine").length === this.minefield.querySelectorAll(".tile-undiscovered").length) {
             // Prevents triggering twice if you're going world record pace
             if (!this.gameEnded) {
                 this.gameWin()

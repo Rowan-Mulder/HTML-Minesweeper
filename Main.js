@@ -82,10 +82,20 @@ Object.entries(sounds).forEach((sound) => {
 let gridSize = { x: 15, y: 15 }
 let mineChance = 0.1
 let uncoverSpeedMs = 40
+let inputs = {
+    inputWidth,
+    inputHeight,
+    inputMines,
+    inputGameTileSize,
+    inputGameSpacerWidth,
+    inputW95MenuSpacerWidth,
+    inputW95ThemeBgColor,
+    inputW95ThemeButtonFgColor,
+    inputW95ThemeButtonActiveBgColor,
+    inputW95ThemeButtonActiveFgColor
+}
 
-let game = new Minesweeper(minefield, gameTimeCounter, minesLeft, gridSize, mineChance, uncoverSpeedMs, sounds)
-
-
+let game = new Minesweeper(minefield, gameTimeCounter, minesLeft, gridSize, mineChance, uncoverSpeedMs, sounds, smileyChange, inputs)
 
 function restart(options = null) {
     closeMenuDropdown()
