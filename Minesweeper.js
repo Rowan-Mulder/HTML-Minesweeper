@@ -150,14 +150,7 @@ class Minesweeper {
                         marking.classList.add("marking")
                         tile.append(marking)
 
-                        // Updates the visualized number of remaining mines
-                        let flagCount = this.minefield.querySelectorAll(".markingFlag").length
-                        let mineCount = this.minefield.querySelectorAll(".mine").length - flagCount
-                        if (mineCount >= 0) {
-                            this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount
-                        } else {
-                            this.minesLeft.innerText = "-" + "00".substr(Math.abs(mineCount).toString().length, 3) + Math.abs(mineCount)
-                        }
+                        this.updateMineCount()
                     }
                     if (evt.button === 2 && evt.buttons === 1) {
                         this.quickClear(x, y)
@@ -174,8 +167,6 @@ class Minesweeper {
                     mineContainer.classList.add("inner-tile")
                     tile.append(mineContainer)
                     tile.classList.add("tile-unsafe")
-                    let mineCount = Number(this.minesLeft.innerText) + 1
-                    this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount // TODO: This can be optimised by only being called once when minefield is done generating.
                 } else {
                     let noMine = document.createElement("div")
                     noMine.classList.add("inner-tile")
@@ -184,6 +175,7 @@ class Minesweeper {
                 }
 
                 row.append(tile)
+                this.updateMineCount()
             }
         }
     }
@@ -368,6 +360,18 @@ class Minesweeper {
         }
     }
 
+    // Updates the visualized number of remaining mines
+    updateMineCount() {
+        let flagCount = this.minefield.querySelectorAll(".markingFlag").length
+        let flagMarkingsFaded = this.minefield.querySelectorAll(".animationFadeout.markingFlag").length
+        let mineCount = this.minefield.querySelectorAll(".mine").length - (flagCount - flagMarkingsFaded)
+        if (mineCount >= 0) {
+            this.minesLeft.innerText = "000".substr(mineCount.toString().length, 3) + mineCount
+        } else {
+            this.minesLeft.innerText = "-" + "00".substr(Math.abs(mineCount).toString().length, 3) + Math.abs(mineCount)
+        }
+    }
+
     gameOver(x, y) {
         this.stopTimer()
         this.gameEnded = true
@@ -419,7 +423,6 @@ class Minesweeper {
         this.stopTimer()
         this.gameEnded = true
         this.smileyChange("won")
-        this.minesLeft.innerText = "000"
         this.playSound("sfx02", 150)
 
         for (let y = 0; y < this.gridSize.y; y++) {
@@ -454,7 +457,7 @@ class Minesweeper {
         }
     }
 
-    // 'mineChance' has to be changed into 'mines'. for every mine placed, place another mine based on probability and take remaining space/mines in account.
+    // TODO: 'mineChance' has to be changed into 'mines'. for every mine placed, place another mine based on probability and take remaining space/mines in account.
     gameRestart(options = null) {
         this.stopTimer()
         this.gameData.gameId++
@@ -510,7 +513,6 @@ class Minesweeper {
 
         this.minefield.innerHTML = ""
         this.gameTimeCounter.innerText = "000"
-        this.minesLeft.innerText = "000"
         this.smileyChange("regular")
 
         this.placeMines()
@@ -671,6 +673,10 @@ class Minesweeper {
 
         for (let tile of nextCrossSearches) {
             if (!this.isCloseTilesUncovered(tile.x, tile.y)) {
+                // for (let marking of this.minefield.children[tile.y].children[tile.x].querySelectorAll(".marking")) {
+                //     marking.remove()
+                // }
+
                 if (this.uncoverSpeedMs > 0) {
                     setTimeout(() => {
                         clearTimeout(this.exploringTimer)
@@ -859,6 +865,8 @@ class Minesweeper {
     }
 
     endOfTurn() {
+        this.updateMineCount()
+
         for (let fn of this.endOfTurnFunctions) {
             eval("this." + fn.split(":")[0])(fn.split(":")[1])
         }

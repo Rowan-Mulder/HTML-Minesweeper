@@ -419,9 +419,6 @@ document.querySelectorAll(".window-popup").forEach((popupWindow) => {
 
 
 /* Notes
-FIXME
-    Removed incorrectly placed flags don't correct the amount of expected mines left
-
 TODO
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
