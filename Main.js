@@ -420,6 +420,7 @@ document.querySelectorAll(".window-popup").forEach((popupWindow) => {
 
 /* Notes
 TODO
+    Highscores
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
         Minecount numbers 1-8
