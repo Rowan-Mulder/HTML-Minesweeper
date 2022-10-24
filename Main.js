@@ -419,11 +419,14 @@ document.querySelectorAll(".window-popup").forEach((popupWindow) => {
 
 
 /* Notes
+Fixme
+    LMB+RMB for quick-clearing doesn't work on Chromium browsers
+
 TODO
     Highscores
     Browser cookie to remember preferences and highscores
     Add settings to preferences
-        simply click to uncover close tiles (if the surrounding mines match with flag amount), in addition to LMB+RMB/RMB+LMB/MMB/longpress
+        simply click to quick-clear (if the surrounding mines match with flag amount), in addition to LMB+RMB/RMB+LMB/MMB/longpress
     Create images and use them instead of emoji's
         SVG: 7-segment display for mineCounter+gameTimer and light them up via an api (to prevent dependency and scaling issues)
         Minecount numbers 1-8
