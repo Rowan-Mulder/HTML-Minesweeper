@@ -1,4 +1,4 @@
-import Minesweeper from "./Minesweeper.js";
+import Minesweeper from './Minesweeper.js'
 import Color from './Color.js'
 
 // region Registering event listeners
