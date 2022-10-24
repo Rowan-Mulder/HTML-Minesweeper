@@ -42,7 +42,8 @@ class Minesweeper {
             for (let x = 0; x < this.gridSize.x; x++) {
                 let tile = document.createElement("button")
                 tile.classList.add("tile", "border-white-black")
-                tile.addEventListener("click", (evt) => {
+                tile.addEventListener("click", (evt) => { // mouseup will also trigger on devices with pointerType that aren't 'mouse'
+                    // FIXME: click event will be cancelled on Chromium browsers when you hold LMB, then hold RMB AND release RMB, then release LMB.
                     if (this.preventNextLMB) {
                         return
                     }
