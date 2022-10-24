@@ -423,6 +423,7 @@ class Minesweeper {
         this.stopTimer()
         this.gameEnded = true
         this.smileyChange("won")
+        this.minesLeft.innerText = "000"
         this.playSound("sfx02", 150)
 
         for (let y = 0; y < this.gridSize.y; y++) {
