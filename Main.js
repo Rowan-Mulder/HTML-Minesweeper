@@ -421,7 +421,7 @@ document.querySelectorAll(".window-popup").forEach((popupWindow) => {
 /* Notes
 Fixme
     LMB+RMB for quick-clearing doesn't work on Chromium browsers
-        This is because Chromium browsers cancel the click event on release of RMB when holding LMB
+        This is because Chromium browsers cancel the click event on release of RMB when holding LMB (event doesn't seem to be aborted by AbortSignal)
 
 TODO
     Highscores
