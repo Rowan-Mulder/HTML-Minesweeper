@@ -437,6 +437,7 @@ button:focus-visible:not(.w95-menu-button) {
                         .inner-tile {
                             font-size: 30px;
                             font-weight: bold;
+                            user-select: none;
                         }
                             .marking {
                                 background-position: center;
