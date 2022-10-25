@@ -42,8 +42,7 @@ class Minesweeper {
             for (let x = 0; x < this.gridSize.x; x++) {
                 let tile = document.createElement("button")
                 tile.classList.add("tile", "border-white-black")
-                tile.addEventListener("click", (evt) => { // mouseup will also trigger on devices with pointerType that aren't 'mouse'
-                    // FIXME: click event will be cancelled on Chromium browsers when you hold LMB, then hold RMB AND release RMB, then release LMB.
+                tile.addEventListener("click", (evt) => {
                     if (this.preventNextLMB) {
                         return
                     }
@@ -114,7 +113,7 @@ class Minesweeper {
                 tile.addEventListener("contextmenu", (evt) => {
                     evt.preventDefault()
 
-                    if ((evt.button === 2 && evt.buttons) === 0 || evt.pointerType) { // Right click on PC or long-press on touch/pen devices
+                    if ((evt.button === 2 && evt.buttons === 0) || evt.pointerType === "touch") { // Right click on PC or long-press on touch/pen devices
                         if (this.preventNextRMB) {
                             return
                         }
@@ -145,6 +144,7 @@ class Minesweeper {
                                 return
                             }
                         }
+
                         let marking = document.createElement("div")
                         marking.classList.add(`${markings[previousMarkingIndex + 1]}`)
                         marking.classList.add("inner-tile")
@@ -152,8 +152,7 @@ class Minesweeper {
                         tile.append(marking)
 
                         this.updateMineCount()
-                    }
-                    if (evt.button === 2 && evt.buttons === 1) {
+                    } else if (evt.button === 2 && evt.buttons === 1) {
                         this.quickClear(x, y)
                         this.preventNextLMB = true
                     }
